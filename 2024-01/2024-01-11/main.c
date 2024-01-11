@@ -34,7 +34,7 @@ int main()
 
 	char en = 'A';
 	char ko = '°¡';
-	char ko2[3] = "°¡";
+	//char ko2[3] = "°¡";
 	printf("%c, %c,, %c%c, %s\n", en, ko, ko2[0], ko2[1], ko2);
 
 

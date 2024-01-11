@@ -4,7 +4,7 @@ int main()
 {
 	printf("1.\n"); // 1
 	double double1, double2;
-	printf("두 실수 입력: ");
+	printf("두 실수\v 입력: ");
 	scanf("%lf %lf", &double1, &double2);
 	printf("%0.2lf + %0.1lf = %0.2lf\n", double1, double2, double1 + double2);
 
@@ -21,7 +21,5 @@ int main()
 	char alphabet;
 	scanf(" %c", &alphabet);
 	printf("%c", alphabet + 1);
-
-
 
 }
