@@ -24,5 +24,14 @@
     <ClCompile Include="switch.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="while.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="for.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="problem2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
