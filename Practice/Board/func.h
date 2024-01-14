@@ -22,6 +22,7 @@ char tile_player = 'P';	//플레이어
 char tile_air = '0';	//빈칸
 char tile_ground = 'G';	//땅
 char tile_clear = '1';	//클리어
+char tile_box = 'B';
 
 void printTile(char tile_name)
 {
@@ -33,9 +34,11 @@ void printTile(char tile_name)
 		printf("▩");
 	else if (tile_clear == tile_name)
 		printf("★");
+	else if (tile_box == tile_name)
+		printf("㉿");
 };
 
-bool isMovable(char tile_name)
+bool isMove(char tile_name)
 {
 	if (tile_air == tile_name)
 	{
@@ -48,6 +51,17 @@ bool isMovable(char tile_name)
 
 }
 
+bool isPush(char tile_name)
+{
+	if (tile_box == tile_name)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 
 
 //화면에 그리기
@@ -105,7 +119,7 @@ NEWSTAGE Stage[4] = {
 	"0 G 0 "
 	"0 G 0 "
 	"0 G 0 "
-	"0 0 0 "
+	"B 0 0 "
 	"0 G 0 "
 	"0 0 0"}
 	,{ 4, 10, 10,
@@ -187,7 +201,7 @@ void act(int input)
 			{
 				stageClear();
 			}
-			else if (isMovable(stage[playerRow][playerCol - 1][0]))
+			else if (isMove(stage[playerRow][playerCol - 1][0]))
 			{
 				stage[playerRow][playerCol - 1][0] = tile_player;
 				stage[playerRow][playerCol][0] = tile_air;
@@ -205,7 +219,7 @@ void act(int input)
 			{
 				stageClear();
 			}
-			else if (isMovable(stage[playerRow + 1][playerCol][0]))
+			else if (isMove(stage[playerRow + 1][playerCol][0]))
 			{
 				stage[playerRow + 1][playerCol][0] = tile_player;
 				stage[playerRow][playerCol][0] = tile_air;
@@ -224,7 +238,7 @@ void act(int input)
 				stageClear();
 			}
 			else
-				if (isMovable(stage[playerRow][playerCol + 1][0]))
+				if (isMove(stage[playerRow][playerCol + 1][0]))
 				{
 					stage[playerRow][playerCol + 1][0] = tile_player;
 					stage[playerRow][playerCol][0] = tile_air;
@@ -242,7 +256,7 @@ void act(int input)
 			{
 				stageClear();
 			}
-			else if (isMovable(stage[playerRow - 1][playerCol][0]))
+			else if (isMove(stage[playerRow - 1][playerCol][0]))
 			{
 				stage[playerRow - 1][playerCol][0] = tile_player;
 				stage[playerRow][playerCol][0] = tile_air;
