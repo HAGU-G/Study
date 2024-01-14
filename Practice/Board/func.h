@@ -22,7 +22,7 @@ char tile_player = 'P';	//플레이어
 char tile_air = '0';	//빈칸
 char tile_ground = 'G';	//땅
 char tile_clear = '1';	//클리어
-char tile_box = 'B';
+char tile_ball = 'B';
 
 void printTile(char tile_name)
 {
@@ -34,7 +34,7 @@ void printTile(char tile_name)
 		printf("▩");
 	else if (tile_clear == tile_name)
 		printf("★");
-	else if (tile_box == tile_name)
+	else if (tile_ball == tile_name)
 		printf("㉿");
 };
 
@@ -53,7 +53,7 @@ bool isMove(char tile_name)
 
 bool isPush(char tile_name)
 {
-	if (tile_box == tile_name)
+	if (tile_ball == tile_name)
 	{
 		return true;
 	}
@@ -225,6 +225,17 @@ void act(int input)
 				stage[playerRow][playerCol][0] = tile_air;
 				playerRow++;
 				wcscpy_s(active, ACTCHAR, L"아래로 이동");
+			}
+			else if (isPush(stage[playerRow + 1][playerCol][0]))
+			{
+				if (isMove(stage[playerRow + 2][playerCol][0]))
+				{
+					stage[playerRow + 2][playerCol][0] = tile_ball;
+					stage[playerRow + 1][playerCol][0] = tile_player;
+					stage[playerRow][playerCol][0] = tile_air;
+					playerRow += 1;
+					wcscpy_s(active, ACTCHAR, L"공을 아래로 이동");
+				}
 			}
 		}
 		break;

@@ -11,7 +11,7 @@ int main()
 	//로케일(사용자 지역 정의)
 	setlocale(LC_ALL, "korean");
 	
-	selectStage(3);
+	selectStage(1);
 	do
 	{
 
