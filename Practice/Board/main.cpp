@@ -2,23 +2,47 @@
 
 int main()
 {
+	int input;
+
 	//로케일
 	setlocale(LC_ALL, "korean");
-
-	//스테이지 공백으로 초기화
-	for (int i = 0; i < 6; i++)
-	{
-		for (int j = 0; j < 6; j++)
-		{
-			wcscpy_s(stage[i][j], 2, L"　");
-		}
-	}
+	selectStage(1);
 
 	do
 	{
 
-	} while (true);
-	selectStage(1);
-	draw();	draw();
+		draw();
+
+		rewind(stdin);
+		if (scanf_s("%d", &input) == true)
+		{
+			switch (input)
+			{
+			case 1:
+			{
+				move(input);
+				wcscpy_s(active, 101, L"왼쪽으로 이동");
+				break;
+			}
+			case 2:
+			{
+				wcscpy_s(active, 101, L"아래로 이동");
+				break;
+			}
+			case 3:
+			{
+				wcscpy_s(active, 101, L"오른쪽으로 이동");
+				break;
+			}
+			case 4:
+			{
+				wcscpy_s(active, 101, L"위로 이동");
+				break;
+			}
+
+			}
+		}
+	} while (input != 9);
+
 
 }
