@@ -1,12 +1,10 @@
 #pragma once
-#include<stdio.h>
-#include<locale.h>
-#include<wchar.h>
-#include<windows.h>
+
 
 #define MAXROW 10
 #define MAXCOL 10
 #define STAGEOBJECT MAXROW * MAXCOL * 2
+#define ACTCHAR 101
 
 char stage[MAXROW][MAXCOL][2]; //실시간 스테이지 오브젝트 정보
 
@@ -17,13 +15,14 @@ char selectStageObj[STAGEOBJECT]; //선택한 스테이지 오브젝트
 
 int playerRow; //플레이어 행
 int playerCol; //플레이어 열
-wchar_t active[100+1] = L""; //행동(입력)
+wchar_t active[ACTCHAR] = L""; //행동(입력)
 
 
-//타일 종류
+//타일 종류 (추가 시 printTile, isMovable 작성)
 char tile_player = 'P';	//플레이어
-char tile_air = '0';		//빈칸
+char tile_air = '0';	//빈칸
 char tile_ground = 'G';	//땅
+char tile_clear = '1';	//클리어
 
 void printTile(char tile_name)
 {
@@ -33,12 +32,20 @@ void printTile(char tile_name)
 		printf("　");
 	else if (tile_ground == tile_name)
 		printf("▩");
+	else if (tile_clear == tile_name)
+		printf("★");
 };
 
 bool isMovable(char tile_name)
 {
 	if (tile_air == tile_name)
+	{
 		return true;
+	}
+	else
+	{
+		return false;
+	}
 
 }
 
@@ -79,28 +86,29 @@ typedef struct stageInfo {
 } NEWSTAGE;
 
 //스테이지 목록
-NEWSTAGE Stage[1] = {
+NEWSTAGE Stage[2] = {
 	{ 1, 6, 6,"\
 0 0 0 0 0 0 \
 0 0 0 0 0 0 \
-0 0 0 0 0 0 \
+0 0 0 1 0 0 \
 0 0 0 0 0 0 \
 0 0 0 0 0 0 \
 0 P 0 0 0 0\0"}
-
+	,{ 2, 4, 9,"\
+1 0 0 0 G 0 0 0 0 \
+0 0 G 0 G 0 0 P 0 \
+0 0 G 0 G 0 0 0 0 \
+0 0 G 0 0 0 0 0 0\0"}
 
 
 };
 
 
-
-
-
-
 //스테이지 불러오기
 void stageLoad()
 {
-	char* object = selectStageObj;
+	char object[STAGEOBJECT];
+	strcpy_s(object, selectStageRow * selectStageCol * 2, selectStageObj);
 	char* buffer;
 	char* token = strtok_s(object, " ", &buffer);
 	for (int i = 0; i < selectStageRow; i++)
@@ -133,32 +141,106 @@ void selectStage(int stageNum)
 	{
 		if (i + 1 == stageNum)
 		{
+			selectStageNum = Stage[i].num;
 			selectStageRow = Stage[i].row;
 			selectStageCol = Stage[i].col;
-			strcpy_s(selectStageObj, 72, Stage[i].objects);
+			strcpy_s(selectStageObj, selectStageRow * selectStageCol * 2, Stage[i].objects);
 		}
 	}
 	stageLoad();
 }
 
-//이동
-void move(int direction)
+//클리어
+void stageClear()
 {
-	switch (direction)
+	selectStage(selectStageNum + 1);
+	wcscpy_s(active, ACTCHAR, L"클리어!");
+}
+
+
+//플레이어 이동
+void act(int input)
+{
+	switch (input)
 	{
-	case 1:
+	case 1: //왼쪽
 	{
 		if (playerCol != 0)
 		{
-			if (isMovable(stage[playerRow][playerCol - 1][0]))
+			if (stage[playerRow][playerCol - 1][0] == tile_clear)
+			{
+				stageClear();
+			}
+			else if (isMovable(stage[playerRow][playerCol - 1][0]))
 			{
 				stage[playerRow][playerCol - 1][0] = tile_player;
 				stage[playerRow][playerCol][0] = tile_air;
 				playerCol--;
+				wcscpy_s(active, ACTCHAR, L"왼쪽으로 이동");
 			}
 		}
 	break;
 	}
-
+	case 2: //아래
+	{
+		if (playerRow != selectStageRow-1)
+		{
+			if (stage[playerRow + 1][playerCol][0] == tile_clear)
+			{
+				stageClear();
+			}
+			else if (isMovable(stage[playerRow + 1][playerCol][0]))
+			{
+				stage[playerRow+1][playerCol][0] = tile_player;
+				stage[playerRow][playerCol][0] = tile_air;
+				playerRow++;
+				wcscpy_s(active, ACTCHAR, L"아래로 이동");
+			}
+		}
+		break;
+	}
+	case 3: //오른쪽
+	{
+		if (playerCol != selectStageCol - 1)
+		{
+			if (stage[playerRow][playerCol + 1][0] == tile_clear)
+			{
+				stageClear();
+			}
+			else
+			if (isMovable(stage[playerRow][playerCol + 1][0]))
+			{
+				stage[playerRow][playerCol + 1][0] = tile_player;
+				stage[playerRow][playerCol][0] = tile_air;
+				playerCol++;
+				wcscpy_s(active, ACTCHAR, L"오른쪽으로 이동");
+			}
+		}
+		break;
+	}
+	case 5: //위
+	{
+		if (playerRow != 0)
+		{
+			if (stage[playerRow - 1][playerCol][0] == tile_clear)
+			{
+				stageClear();
+			}
+			else if (isMovable(stage[playerRow - 1][playerCol][0]))
+			{
+				stage[playerRow - 1][playerCol][0] = tile_player;
+				stage[playerRow][playerCol][0] = tile_air;
+				playerRow--;
+				wcscpy_s(active, ACTCHAR, L"위로 이동");
+			}
+		}
+		break;
+	}
+	case 0: //초기화
+	{
+		//selectStage(selectStageNum);
+		stageLoad();
+		break;
+	}
 	}//switch
 }
