@@ -68,7 +68,7 @@ bool isPush(char tile_name)
 void draw()
 {
 	system("mode con:cols=30 lines=19");
-	system("cls");
+	rewind(stdin);
 	for (int i = 0; i < MAXCOL + 2; ++i) { printTile(tile_ground); } printf("\n");
 
 	for (int i = 0; i < (MAXROW - selectStageRow) / 2; ++i) { for (int i = 0; i < MAXCOL + 2; ++i) { printTile(tile_ground); } printf("\n"); }
@@ -101,7 +101,7 @@ typedef struct stageInfo {
 } NEWSTAGE;
 
 //스테이지 목록
-NEWSTAGE Stage[4] = {
+NEWSTAGE Stage[5] = {
 	{ 1, 6, 6,
 	"0 0 0 0 0 0 "
 	"0 0 0 0 0 0 "
@@ -123,16 +123,21 @@ NEWSTAGE Stage[4] = {
 	"0 G 0 "
 	"0 0 0"}
 	,{ 4, 10, 10,
-	"0 0 0 G G 0 0 0 0 P "
-	"0 G 0 0 0 0 G 0 0 0 "
-	"0 G 0 G G 0 0 0 0 0 "
-	"G G G 1 G 0 0 G G 0 "
-	"0 0 0 0 G 0 0 0 0 0 "
-	"0 G 0 G G 0 G 0 0 0 "
-	"0 0 G 0 0 0 G 0 G 0 "
-	"0 0 0 0 G 0 G G 0 0 "
-	"G G G 0 G 0 0 0 0 0 "
-	"0 0 0 G 0 0 G G 0 0"}
+	"0 0 0 0 G 0 0 0 0 P "
+	"0 0 0 B 0 0 0 0 0 0 "
+	"0 G G G G G G B B G "
+	"0 G 0 1 G 0 0 0 0 G "
+	"0 G 0 G G 0 0 0 0 G "
+	"0 0 B 0 G B G 0 0 G "
+	"0 G 0 G 0 0 G 0 0 G "
+	"0 0 0 0 0 0 G G 0 0 "
+	"G G G 0 G B 0 0 0 0 "
+	"G G G 0 0 0 G G 0 0"}
+	,{ 5, 4, 4,
+	"0 0 0 0 "
+	"0 0 B P "
+	"0 0 0 0 "
+	"0 0 0 0"}
 
 
 };
@@ -193,7 +198,7 @@ void act(int input)
 {
 	switch (input)
 	{
-	case 1: //왼쪽
+	case 75: //왼쪽
 	{
 		if (playerCol != 0)
 		{
@@ -208,10 +213,21 @@ void act(int input)
 				playerCol--;
 				wcscpy_s(active, ACTCHAR, L"왼쪽으로 이동");
 			}
+			else if (isPush(stage[playerRow][playerCol - 1][0]))
+			{
+				if (isMove(stage[playerRow][playerCol - 2][0]))
+				{
+					stage[playerRow][playerCol - 2][0] = tile_ball;
+					stage[playerRow][playerCol - 1][0] = tile_player;
+					stage[playerRow][playerCol][0] = tile_air;
+					playerCol -= 1;
+					wcscpy_s(active, ACTCHAR, L"공을 왼쪽으로 이동");
+				}
+			}
 		}
 		break;
 	}
-	case 2: //아래
+	case 80: //아래
 	{
 		if (playerRow != selectStageRow - 1)
 		{
@@ -240,7 +256,7 @@ void act(int input)
 		}
 		break;
 	}
-	case 3: //오른쪽
+	case 77: //오른쪽
 	{
 		if (playerCol != selectStageCol - 1)
 		{
@@ -248,18 +264,28 @@ void act(int input)
 			{
 				stageClear();
 			}
-			else
-				if (isMove(stage[playerRow][playerCol + 1][0]))
+			else if (isMove(stage[playerRow][playerCol + 1][0]))
+			{
+				stage[playerRow][playerCol + 1][0] = tile_player;
+				stage[playerRow][playerCol][0] = tile_air;
+				playerCol++;
+				wcscpy_s(active, ACTCHAR, L"오른쪽으로 이동");
+			}
+			else if (isPush(stage[playerRow][playerCol+1][0]))
+			{
+				if (isMove(stage[playerRow][playerCol+2][0]))
 				{
-					stage[playerRow][playerCol + 1][0] = tile_player;
+					stage[playerRow][playerCol+2][0] = tile_ball;
+					stage[playerRow][playerCol+1][0] = tile_player;
 					stage[playerRow][playerCol][0] = tile_air;
-					playerCol++;
-					wcscpy_s(active, ACTCHAR, L"오른쪽으로 이동");
+					playerCol += 1;
+					wcscpy_s(active, ACTCHAR, L"공을 오른쪽으로 이동");
 				}
+			}
 		}
 		break;
 	}
-	case 5: //위
+	case 72: //위
 	{
 		if (playerRow != 0)
 		{
@@ -274,10 +300,21 @@ void act(int input)
 				playerRow--;
 				wcscpy_s(active, ACTCHAR, L"위로 이동");
 			}
+			else if (isPush(stage[playerRow - 1][playerCol][0]))
+			{
+				if (isMove(stage[playerRow - 2][playerCol][0]))
+				{
+					stage[playerRow - 2][playerCol][0] = tile_ball;
+					stage[playerRow - 1][playerCol][0] = tile_player;
+					stage[playerRow][playerCol][0] = tile_air;
+					playerRow -= 1;
+					wcscpy_s(active, ACTCHAR, L"공을 위로 이동");
+				}
+			}
 		}
 		break;
 	}
-	case 0: //초기화
+	case 13: //초기화
 	{
 		selectStage(selectStageNum);
 		break;
