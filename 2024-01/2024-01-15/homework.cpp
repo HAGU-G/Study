@@ -51,14 +51,11 @@ int main()
 	{
 		if (source1[i] != source2[i])
 		{
-			compare = 1;
+			compare = (source1[i] > source2[i] ? 1 : -1);
 			break;
 		}
 	}
 	printf("\n[strcmp]\n°á°ú : %d\n", compare);
-
-
-
 
 	return 0;
 }
