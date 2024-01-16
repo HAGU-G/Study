@@ -1,15 +1,13 @@
 #include <stdio.h>
 #include <windows.h>
 #include <conio.h>
-//#include "func.h"
 
+#define MAXROW 10 //최대 행 *수정 가능
+#define MAXCOL 13 //최대 열 *수정 가능
+#define ACTCHAR 100 //이전 행동 출력 최대 크기 *수정 가능
+#define STAGEOBJECT MAXROW * MAXCOL * 2 //오브젝트 정보의 최대 크기
 
-#define MAXROW 10
-#define MAXCOL 13
-#define STAGEOBJECT MAXROW * MAXCOL * 2
-#define ACTCHAR 1000
-
-char stage[MAXROW][MAXCOL][2]; //실시간 스테이지 오브젝트 정보
+char stage[MAXROW][MAXCOL][2]; //실시간 스테이지 오브젝트 정보를 담을 배열
 
 int selectStageNum; //선택한 스테이지 번호
 int selectStageRow; //선택한 스테이지 행
@@ -40,7 +38,6 @@ void printTile(char tile_name)
 	else if (tile_ball == tile_name)
 		printf("㉿");
 };
-
 bool isMove(char tile_name)
 {
 	if (tile_air == tile_name)
@@ -53,7 +50,6 @@ bool isMove(char tile_name)
 	}
 
 }
-
 bool isPush(char tile_name)
 {
 	if (tile_ball == tile_name)
@@ -65,7 +61,6 @@ bool isPush(char tile_name)
 		return false;
 	}
 }
-
 
 //화면에 그리기
 void draw()
@@ -94,7 +89,7 @@ void draw()
 	printf("이전 행동 : %s", active);
 }
 
-//스테이지 정보
+//스테이지에 넣어야할 멤버
 typedef struct {
 	const int num;
 	const int row;
@@ -147,8 +142,8 @@ NEWSTAGE Stage[5] = {
 //스테이지 선택 및 불러오기
 void selectStage(int stageNum)
 {
-	char object[STAGEOBJECT];
-	char* buffer;
+	char object[STAGEOBJECT] = "";
+	char* buffer = nullptr;
 
 	for (int i = 0; i < sizeof(Stage); ++i)
 	{
@@ -157,7 +152,7 @@ void selectStage(int stageNum)
 			selectStageNum = Stage[i].num;
 			selectStageRow = Stage[i].row;
 			selectStageCol = Stage[i].col;
-			strcpy_s(object, selectStageRow * selectStageCol * 2, Stage[i].objects);
+			strcpy_s(object, STAGEOBJECT, Stage[i].objects);
 		}
 	}
 
@@ -192,7 +187,6 @@ void stageClear()
 	selectStage(selectStageNum + 1);
 	strcpy_s(active, ACTCHAR, "클리어!　　　　 　");
 }
-
 
 //플레이어 이동
 void act(int input)
@@ -325,28 +319,26 @@ void act(int input)
 
 int main()
 {
+	//콘솔 설정
 	{
 		system("mode con:cols=30 lines=18");
-
 		CONSOLE_CURSOR_INFO cursorVisivle = { 100, FALSE };
 		SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorVisivle);
 	}
 
 	int input;
 	selectStage(1);
+
 	do
 	{
-
 		draw();
 		input = _getch();
 		act(input);
-
 
 		/*if (scanf_s("%d", &input) == true)
 		{
 				act(input);
 		}*/
 	} while (input != 27);
-
 
 }
