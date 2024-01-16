@@ -33,7 +33,7 @@ int main()
 				printf("%d ", arr[i]);
 			}
 		}
-		printf("\n", arr[0]);
+		printf("\n");
 	}
 
 //2¹ø
