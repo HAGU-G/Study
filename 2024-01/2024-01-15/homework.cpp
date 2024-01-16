@@ -11,13 +11,32 @@ int main()
 	printf("문자열1을 입력해주세요. (1000 Byte) : ");
 	scanf_s("%s", source1, unsigned _countof(source1));
 
-	//strlen 구현
+	//strlen 구현 :
+	// 2024-01-16
+	// 아래는 널문자가 없으면 오류
+	//int count1 = 0;
+	//while (source1[count1] != '\0')
+	//{
+	//	count1++;
+	//}
+	//printf("\n[strlen]\n결과 : %d\n", count1);
 	int count1 = 0;
-	while (source1[count1] != '\0')
+	for (int i = 0; i < _countof(source1); i++)
 	{
-		count1++;
+		if (source1[i] == '\0')
+		{
+			printf("\n[strlen]\n결과 : %d\n", count1);
+			break;
+		}
+		else if (i == _countof(source1) - 1)
+		{
+			printf("\n[strlen]\n오류 : 널문자가 없습니다.\n");
+		}
+		else
+		{
+			count1++;
+		}
 	}
-	printf("\n[strlen]\n결과 : %d\n", count1);
 
 	//strcpy 구현
 	for (int i = 0; i < count1; i++)
@@ -49,9 +68,15 @@ int main()
 	int compare = 0;
 	for (int i = 0; i < ((count1 >= count2) ? count1 : count2); i++)
 	{
-		if (source1[i] != source2[i])
+		//2024-01-16
+		if (source1[i] > source2[i])
 		{
-			compare = (source1[i] > source2[i] ? 1 : -1);
+			compare = 1;
+			break;
+		}
+		else if (source1[i] < source2[i])
+		{
+			compare = -1;
 			break;
 		}
 	}
