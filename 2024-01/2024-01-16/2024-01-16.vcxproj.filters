@@ -21,8 +21,5 @@
     <ClCompile Include="problem.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="review.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

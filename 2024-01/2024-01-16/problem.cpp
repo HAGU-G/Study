@@ -113,9 +113,9 @@ int main()
 	{
 		//arr의 시작 주소는 100이라고 가정
 		int arr[3][3] = { 0 };
-		printf("%d\n", &arr);	//100	: arr의 배열포인터
+		printf("%d\n", &arr);	//100	: arr의 시작주소
 		printf("%d\n", arr);	//100	: arr[i]의 시작주소
-		printf("%d\n", *arr);	//100	: arr[0] *틀림
+		printf("%d\n", *arr);	//100	: arr[0][i]의 시작주소
 
 		printf("%d\n", &arr[0]);	//100	: arr[0]의 주소 = arr
 		printf("%d\n", arr[0]);		//100	: arr[0][i]의 시작 주소
@@ -132,11 +132,11 @@ int main()
 		//시작 주소는 100
 		int arr[3][3] = { 0 };
 
-		printf("%d\n", &arr[0][0]);		// 100	: arr[0]
-		printf("%d\n", arr[0] + 1);		// 104	: arr[0][1]
-		printf("%d\n", &arr[0] + 1);	// 112	: arr[1]
-		printf("%d\n", arr + 1);		// 112	: arr[1]
-		printf("%d\n", &arr + 1);		// 136	: arr		배열 포인터는 int형의 3x3배열이기 때문에 36씩 늘어난다.
+		printf("%d\n", &arr[0][0]);		// 100 int*
+		printf("%d\n", arr[0] + 1);		// 104 int*
+		printf("%d\n", &arr[0] + 1);	// 112 int**
+		printf("%d\n", arr + 1);		// 112 int**
+		printf("%d\n", &arr + 1);		// 136 int***
 
 
 	}
