@@ -43,7 +43,6 @@ int main()
 
 	printf("%d %d\n", &a, &ref); //10 10
 	ref++;
-
 	printf("%d %d\n", a, ref); //11 11
 
 
