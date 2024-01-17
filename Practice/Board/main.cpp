@@ -351,7 +351,7 @@ int main()
 	}
 
 	int input;
-	selectStage(6);
+	selectStage(1);
 
 	do
 	{
