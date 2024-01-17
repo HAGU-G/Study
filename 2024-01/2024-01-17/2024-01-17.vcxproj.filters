@@ -33,5 +33,14 @@
     <ClCompile Include="problem.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="strFunc_v2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="strFunc.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="strnFunc.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
