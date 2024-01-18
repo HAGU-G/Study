@@ -16,6 +16,7 @@ int playerRow; //플레이어 위치 : 행
 int playerCol; //플레이어 위치 : 열
 int moveCount = 0; //움직인 횟수
 char active[ACTCHAR] = ""; //이전 행동 기록
+int stageMoveCount[6] = { 0 };
 
 //타일 종류 (추가 시 printTile, isMove, isPush 작성)
 char tile_player = 'P';	//플레이어
@@ -53,7 +54,7 @@ void draw()
 
 	for (int i = 0; i < MAXCOL + 2; ++i) { printTile(tile_ground); } printf("\n");
 	for (int i = 0; i < (MAXROW - selectStageRow) / 2; ++i) { for (int i = 0; i < MAXCOL + 2; ++i) { printTile(tile_ground); } printf("\n"); }
-	
+
 	for (int i = 0; i < selectStageRow; i++)
 	{
 		for (int i = 0; i < (MAXCOL - selectStageCol) / 2 + 1; ++i) { printTile(tile_ground); }
@@ -114,26 +115,26 @@ NEWSTAGE Stage[] = {
 	"0 B 0 0 "
 	"G 0 0 G"}
 	,{ 6, 10, 14,
-	"G G 0 0 0 1 G 0 0 0 0 0 0 0 "
-	"G 0 B B G G G B G 0 0 0 0 0 "
-	"0 0 B 0 0 0 B 0 B 0 0 0 0 0 "
-	"G 0 0 0 B B G 0 G 0 0 0 0 0 "
-	"0 0 0 0 G P B 0 B 0 0 0 0 0 "
-	"0 0 0 0 B 0 G 0 B 0 0 0 0 0 "
-	"0 0 0 0 B 0 0 0 G 0 0 0 0 0 "
-	"0 0 0 0 0 G B B 0 0 0 0 0 0 "
-	"0 0 0 0 0 0 0 0 0 0 0 0 0 0 "
-	"0 0 0 0 0 0 0 0 0 0 0 0 0 0"}
+	"0 0 0 0 0 0 0 B 0 G G G G 0 "
+	"0 0 0 0 0 G 0 B 0 0 0 G 1 0 "
+	"0 0 G G G 0 B 0 0 G 0 G G 0 "
+	"G 0 0 0 B B B B G 0 0 0 G 0 "
+	"0 B B 0 G P G 0 G 0 B 0 B 0 "
+	"0 B 0 0 G 0 G 0 G 0 0 0 G 0 "
+	"0 G G B 0 0 0 0 G G G 0 G 0 "
+	"0 G 0 0 G G G G G 0 0 B B 0 "
+	"0 0 B 0 0 0 0 G 0 B 0 0 B 0 "
+	"0 0 0 0 0 0 0 0 0 G G 0 0 0"}
 	,{ 7, 10, 14,
-	"0 0 0 0 0 P 0 0 0 0 0 0 0 0 "
-	"0 0 0 0 0 0 0 B 0 0 0 0 0 0 "
-	"0 B 0 0 0 0 B 0 0 0 0 B 0 0 "
-	"0 0 0 0 B 0 0 0 0 0 0 0 0 0 "
-	"0 0 0 0 0 0 0 0 B 0 0 0 0 0 "
-	"0 0 0 0 0 0 0 0 B 0 0 0 0 0 "
-	"0 0 0 0 B 0 0 0 0 0 0 B 0 0 "
-	"0 0 B 0 0 0 B 0 0 0 0 0 0 0 "
-	"0 0 0 B 0 0 0 0 0 0 0 0 0 0 "
+	"0 0 0 0 0 0 0 0 0 0 0 0 0 0 "
+	"0 0 0 0 0 0 0 0 0 0 0 0 P 0 "
+	"0 0 0 0 0 0 0 0 0 0 0 0 0 0 "
+	"0 0 0 0 0 0 0 0 0 0 0 0 0 0 "
+	"0 0 0 0 0 0 0 0 0 0 0 0 0 0 "
+	"0 0 0 0 0 0 0 0 0 0 0 0 0 0 "
+	"0 0 0 0 0 0 0 0 0 0 0 0 0 0 "
+	"0 0 0 0 0 0 0 0 0 0 G B 1 0 "
+	"0 0 0 0 0 0 0 0 0 0 0 0 0 0 "
 	"0 0 0 0 0 0 0 0 0 0 0 0 0 0"}
 
 
@@ -185,6 +186,7 @@ void selectStage(int stageNum)
 //클리어
 void stageClear()
 {
+	stageMoveCount[selectStageNum - 1] = moveCount;
 	selectStage(selectStageNum + 1);
 	strcpy_s(active, ACTCHAR, "클리어!　　　　 　");
 }
@@ -210,16 +212,19 @@ void act(int input)
 				strcpy_s(active, ACTCHAR, "왼쪽으로 이동 　　");
 				moveCount++;
 			}
-			else if (isPush(stage[playerRow][playerCol - 1][0]))
+			else if (playerCol > 1)
 			{
-				if (isMove(stage[playerRow][playerCol - 2][0]))
+				if (isPush(stage[playerRow][playerCol - 1][0]))
 				{
-					stage[playerRow][playerCol - 2][0] = tile_ball;
-					stage[playerRow][playerCol - 1][0] = tile_player;
-					stage[playerRow][playerCol][0] = tile_air;
-					playerCol -= 1;
-					strcpy_s(active, ACTCHAR, "공을 왼쪽으로 이동");
-					moveCount++;
+					if (isMove(stage[playerRow][playerCol - 2][0]))
+					{
+						stage[playerRow][playerCol - 2][0] = tile_ball;
+						stage[playerRow][playerCol - 1][0] = tile_player;
+						stage[playerRow][playerCol][0] = tile_air;
+						playerCol -= 1;
+						strcpy_s(active, ACTCHAR, "공을 왼쪽으로 이동");
+						moveCount++;
+					}
 				}
 			}
 		}
@@ -241,16 +246,19 @@ void act(int input)
 				strcpy_s(active, ACTCHAR, "아래로 이동　　 　");
 				moveCount++;
 			}
-			else if (isPush(stage[playerRow + 1][playerCol][0]))
+			else if (playerRow < selectStageRow - 2)
 			{
-				if (isMove(stage[playerRow + 2][playerCol][0]))
+				if (isPush(stage[playerRow + 1][playerCol][0]))
 				{
-					stage[playerRow + 2][playerCol][0] = tile_ball;
-					stage[playerRow + 1][playerCol][0] = tile_player;
-					stage[playerRow][playerCol][0] = tile_air;
-					playerRow += 1;
-					strcpy_s(active, ACTCHAR, "공을 아래로 이동　");
-					moveCount++;
+					if (isMove(stage[playerRow + 2][playerCol][0]))
+					{
+						stage[playerRow + 2][playerCol][0] = tile_ball;
+						stage[playerRow + 1][playerCol][0] = tile_player;
+						stage[playerRow][playerCol][0] = tile_air;
+						playerRow += 1;
+						strcpy_s(active, ACTCHAR, "공을 아래로 이동　");
+						moveCount++;
+					}
 				}
 			}
 		}
@@ -272,16 +280,19 @@ void act(int input)
 				strcpy_s(active, ACTCHAR, "오른쪽으로 이동 　");
 				moveCount++;
 			}
-			else if (isPush(stage[playerRow][playerCol + 1][0]))
+			else if (playerCol < selectStageCol - 2)
 			{
-				if (isMove(stage[playerRow][playerCol + 2][0]))
+				if (isPush(stage[playerRow][playerCol + 1][0]))
 				{
-					stage[playerRow][playerCol + 2][0] = tile_ball;
-					stage[playerRow][playerCol + 1][0] = tile_player;
-					stage[playerRow][playerCol][0] = tile_air;
-					playerCol += 1;
-					strcpy_s(active, ACTCHAR, "공을 우측으로 이동");
-					moveCount++;
+					if (isMove(stage[playerRow][playerCol + 2][0]))
+					{
+						stage[playerRow][playerCol + 2][0] = tile_ball;
+						stage[playerRow][playerCol + 1][0] = tile_player;
+						stage[playerRow][playerCol][0] = tile_air;
+						playerCol += 1;
+						strcpy_s(active, ACTCHAR, "공을 우측으로 이동");
+						moveCount++;
+					}
 				}
 			}
 		}
@@ -303,16 +314,19 @@ void act(int input)
 				strcpy_s(active, ACTCHAR, "위로 이동　　　 　");
 				moveCount++;
 			}
-			else if (isPush(stage[playerRow - 1][playerCol][0]))
+			else if (playerRow > 1)
 			{
-				if (isMove(stage[playerRow - 2][playerCol][0]))
+				if (isPush(stage[playerRow - 1][playerCol][0]))
 				{
-					stage[playerRow - 2][playerCol][0] = tile_ball;
-					stage[playerRow - 1][playerCol][0] = tile_player;
-					stage[playerRow][playerCol][0] = tile_air;
-					playerRow -= 1;
-					strcpy_s(active, ACTCHAR, "공을 위로 이동　　");
-					moveCount++;
+					if (isMove(stage[playerRow - 2][playerCol][0]))
+					{
+						stage[playerRow - 2][playerCol][0] = tile_ball;
+						stage[playerRow - 1][playerCol][0] = tile_player;
+						stage[playerRow][playerCol][0] = tile_air;
+						playerRow -= 1;
+						strcpy_s(active, ACTCHAR, "공을 위로 이동　　");
+						moveCount++;
+					}
 				}
 			}
 		}
@@ -348,6 +362,31 @@ int main()
 		{
 				act(input);
 		}*/
-	} while (input != 27);
 
+	} while (!(input == 27 || selectStageNum == 7));
+
+	if (selectStageNum == 7)
+	{
+		draw();
+		{
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 4, 2 });
+			printf("Stage 1 : %d", stageMoveCount[0]);
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 4, 3 });
+			printf("Stage 2 : %d", stageMoveCount[1]);
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 4, 4 });
+			printf("Stage 3 : %d", stageMoveCount[2]);
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 4, 5 });
+			printf("Stage 4 : %d", stageMoveCount[3]);
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 4, 6 });
+			printf("Stage 5 : %d", stageMoveCount[4]);
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 4, 7 });
+			printf("Stage 6 : %d", stageMoveCount[5]);
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 4, 9 });
+			printf("　　　　　　　　ＥＮＤ！");
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 0, 18 });
+			printf("2024-01-18 조병민　　　　");
+		}
+		input = _getch();
+	}
+	return 0;
 }
