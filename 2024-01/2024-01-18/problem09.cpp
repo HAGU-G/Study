@@ -1,24 +1,18 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 //인덱스 연산자 사용 금지
-void PrintArray(int* parr, int size)
-{
-	for (int i = 0; i < size; ++i)
-	{
-		printf("%d ", *(parr + i));
-	}
-}
-
 
 int removeElement(int* arr, int size, int element);
+void PrintArray(int* parr, int size);
 
 
 int main()
 {
-	int a[] = { 1, 2, 4, 3, 6 };
+	int a[] = { 1, 2, 4, 3, 2, 2, 6 };
 	int aResize = 0;
 
-	aResize = removeElement(a, 5, 2);
+	aResize = removeElement(a, _countof(a), 2);
 
 	PrintArray(a, aResize);
 	printf("\n%d", aResize);
@@ -43,12 +37,20 @@ int removeElement(int* arr, int size, int element)
 	int resize = 0;
 	for (int* i = arr, *j = arr; i < arr + size; i++)
 	{
-		*j = *i;
 		if (*i != element)
 		{
+			*j = *i;
 			j++;
 			resize++;
 		}
 	}
 	return resize;
+}
+
+void PrintArray(int* parr, int size)
+{
+	for (int i = 0; i < size; ++i)
+	{
+		printf("%d ", *(parr + i));
+	}
 }
