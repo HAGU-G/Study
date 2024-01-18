@@ -39,26 +39,11 @@ void printTile(char tile_name)
 };
 bool isMove(char tile_name)
 {
-	if (tile_air == tile_name)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-
+	return tile_air == tile_name;
 }
 bool isPush(char tile_name)
 {
-	if (tile_ball == tile_name)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return tile_ball == tile_name;
 }
 
 //게임화면

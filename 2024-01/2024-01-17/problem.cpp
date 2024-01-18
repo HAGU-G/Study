@@ -12,11 +12,13 @@ int parity(int n)
 	{
 		return 1;
 	}
+
+	//return n % 2;로 한번에 끝낼 수 있다.
 }
 
 //2
 int useCnt[5] = { 0 };
-void useItem(int itemNum);
+void useItem(int itemNum); //함수 선언시의 매개변수 이름은 안적어도 문제되지 않는다.
 
 //3
 void rec(int n)

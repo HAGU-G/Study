@@ -1,24 +1,38 @@
 #include <stdio.h>
 
-void test(const char* txt)
+void printfNoSpace(const char* txt) //상수가 아닌 변수는 상수로 암시적 형 변환이 일어난다. 반대의 경우엔 X
 {
-	printf("%s\n", txt);
+	int count = 0;
+	while (true)
+	{
+		if (txt[count] == '\0')
+		{
+			break;
+		}
+		else if (txt[count] != ' ')
+		{
+			printf("%c", txt[count]);
+		}
+		count++;
+	}
 }
 
 int main()
 {
-	const char* dd = "x";
-	printf("%s\n", dd);
-	char aa[] = "dddddddddddfd";
-	test("ddfs");
-	dd = aa;
-	printf("%s", dd);
+	char txt[] = { "Go to hell.\n" };
+	printfNoSpace("Hello, world!\n");
+	printfNoSpace(txt);
 
-	char b = '1';
-	aa = b;
 
-	const int ddf = 2;
-	ddf = 3;
+	//배열 자체를 수정
+	for (int i = 0, j = 0; i < sizeof(txt); i++)
+	{
+		txt[j] = txt[i];
+		if (txt[i] != ' ')
+			j++;
+	}
+
+	printf("%s", txt);
 
 	return 0;
 }
