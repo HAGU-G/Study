@@ -23,5 +23,6 @@ int main()
 	printf("(%d, %d)\n", pos.x, pos.y);
 
 
+
 	return 0;
 }

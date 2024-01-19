@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\homework">
+      <UniqueIdentifier>{a5d26a3b-47b4-4978-be8f-9252e833c68f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -22,6 +25,39 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="problem3.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="homework01.cpp">
+      <Filter>소스 파일\homework</Filter>
+    </ClCompile>
+    <ClCompile Include="homework02.cpp">
+      <Filter>소스 파일\homework</Filter>
+    </ClCompile>
+    <ClCompile Include="homework03.cpp">
+      <Filter>소스 파일\homework</Filter>
+    </ClCompile>
+    <ClCompile Include="homework05.cpp">
+      <Filter>소스 파일\homework</Filter>
+    </ClCompile>
+    <ClCompile Include="homework04.cpp">
+      <Filter>소스 파일\homework</Filter>
+    </ClCompile>
+    <ClCompile Include="homework06.cpp">
+      <Filter>소스 파일\homework</Filter>
+    </ClCompile>
+    <ClCompile Include="homework10.cpp">
+      <Filter>소스 파일\homework</Filter>
+    </ClCompile>
+    <ClCompile Include="homework07.cpp">
+      <Filter>소스 파일\homework</Filter>
+    </ClCompile>
+    <ClCompile Include="homework08.cpp">
+      <Filter>소스 파일\homework</Filter>
+    </ClCompile>
+    <ClCompile Include="homework09.cpp">
+      <Filter>소스 파일\homework</Filter>
+    </ClCompile>
+    <ClCompile Include="cFunc.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
