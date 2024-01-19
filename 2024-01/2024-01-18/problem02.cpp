@@ -16,19 +16,19 @@ int main()
 
 void findMaxMin(int* arr, int size, int** max, int** min)
 {
-	int maxnum = *arr, minnum = *arr;
+	int maxnum = *arr, minnum = *arr; //삭제
 	*max = arr;
 	*min = arr;
 	for (int* i = arr; i < arr + size; i++)
 	{
-		if (*i > maxnum)
+		if (*i > maxnum) //*i > **max
 		{
-			maxnum = *i;
+			maxnum = *i; //삭제
 			*max = i;
 		}
-		if (*i < minnum)
+		if (*i < minnum) //*i < **min
 		{
-			minnum = *i;
+			minnum = *i; //삭제
 			*min = i;
 		}
 	}
