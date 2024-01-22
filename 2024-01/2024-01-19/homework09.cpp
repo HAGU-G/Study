@@ -12,6 +12,8 @@ int main()
 	printf("%d\n", findFirstGreater(arr, _countof(arr), 56));
 	printf("%d\n", findFirstGreater(arr, _countof(arr), 124315));
 
+	
+
 	return 0;
 
 }
