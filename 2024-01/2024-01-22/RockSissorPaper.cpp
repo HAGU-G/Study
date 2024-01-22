@@ -11,12 +11,11 @@ enum
 	Scissor,
 	Paper,
 	Select,
-	Compare,
-	Result
+	Result,
+	End
 };
 
-char numToChar(int num);
-void compare(int player, int npc);
+char numToDes(int num);
 
 
 int main()
@@ -41,8 +40,8 @@ int main()
 			printf("안내면 진다, 가위바위보! : ");
 			scanf_s("%d", &playerHand);
 
-			if (playerHand >= 1 && playerHand <= 3)
-				state = Compare;
+			if (playerHand >= Rock && playerHand <= Paper)
+				state = Result;
 			else
 			{
 				printf("잘못된 입력입니다.\n");
@@ -52,35 +51,39 @@ int main()
 			break;
 		}
 
-		case Compare:
+		case Result:
 		{
 			srand(time(NULL));
 			computerHand = rand() % 3 + 1;
 
-			if (computerHand - playerHand == 1 || (playerHand == 3 && computerHand == 1))
+			printf("컴퓨터 : ");
+			numToDes(computerHand);
+			printf("\n");
+			printf("당신　 : ");
+			numToDes(playerHand);
+
+			if (computerHand - playerHand == 1 || (playerHand == Paper && computerHand == Rock))
 			{
-				printf("%d %d 승리\n", playerHand, computerHand);
+				printf("\t★승리\n");
 				winCount++;
 				state = Select;
 			}
 			else if (playerHand == computerHand)
 			{
-
-				printf("%d %d 무승부\n", playerHand, computerHand);
+				printf("\t●무승부\n");
 				drawCount++;
 				state = Select;
 			}
 			else
 			{
-
-				printf("%d %d 패배\n", playerHand, computerHand);
-				state = Result;
+				printf("\tＸ패배\n");
+				state = End;
 			}
 
 			break;
 		}
 
-		case Result:
+		case End:
 		{
 			printf("\n게임 결과 : %d승 %d무 1패\n", winCount, drawCount);
 			return 0;
@@ -92,11 +95,22 @@ int main()
 	return 0;
 }
 
-char numToChar(int num)
+
+char numToDes(int num)
 {
+	switch (num)
+	{
+	case Rock:
+		printf("바위");
+		break;
+
+	case Scissor:
+		printf("가위");
+		break;
+
+	case Paper:
+		printf("보");
+		break;
+	}
 	return 0;
-}
-void compare(int player, int npc)
-{
-	return;
 }
