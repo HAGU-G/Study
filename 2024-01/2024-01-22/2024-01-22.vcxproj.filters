@@ -21,5 +21,17 @@
     <ClCompile Include="file.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="getcharputchar.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="fgetsfputs.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="sscanf.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="rand.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
