@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\homework">
+      <UniqueIdentifier>{b8aab3f3-70e2-4436-b19f-ab9ed232bc50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bit.cpp">
@@ -32,6 +35,12 @@
     </ClCompile>
     <ClCompile Include="rand.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseBall.cpp">
+      <Filter>소스 파일\homework</Filter>
+    </ClCompile>
+    <ClCompile Include="RockSissorPaper.cpp">
+      <Filter>소스 파일\homework</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
