@@ -7,12 +7,15 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define NUMBERS 3 //다른 개수의 숫자로도 게임을 할 수 있도록 숫자의 개수를 정의
+
+
 enum {
 	Guess,
 	End
 };
 
-bool is3Numbers(char* str, int size);
+bool isNumbers(char* str, int size);
 void bufferClear();
 void charToInt(char* str, int* num, int sSize, int nSize);
 int checkAnswer(int* answer, int* guess, int size);
@@ -20,12 +23,13 @@ int checkAnswer(int* answer, int* guess, int size);
 int main()
 {
 	srand(time(NULL));
-	int computerNum[3] = { 0 };
-	int playerGuess[3] = { 0 };
-	char inputNum[4] = {'\0'};
+	int computerNum[NUMBERS] = { 0 };
+	int playerGuess[NUMBERS] = { 0 };
+	char inputNum[NUMBERS+1] = {'\0'};
 	int state = Guess;
 	int count = 1;
 
+	//서로 다른 숫자 n개 뽑기
 	for (int i = 0; i < _countof(computerNum); i++)
 	{
 		bool isSame = false;
@@ -44,8 +48,10 @@ int main()
 			}
 		} while (isSame);
 	}
-	printf("컴퓨터가 숫자 0 ~ 9 중 세 개를 정했습니다.\n야구 게임을 진행합니다!\n");
+	printf("컴퓨터가 숫자 0 ~ 9 중 %d개를 정했습니다.\n야구 게임을 진행합니다!\n", NUMBERS);
 	printf("입력 예 : 013, 829, 470\n\n");
+	
+	//무슨 숫자가 나왔는지 확인하기 위한 테스트코드
 	//for (int i = 0; i < _countof(computerNum); i++)
 	//{
 	//	printf("%d", computerNum[i]);
@@ -55,20 +61,20 @@ int main()
 	{
 		switch (state)
 		{
-		case Guess:
+		case Guess: //추측 단계
 		{
-			printf("\n(%d회차) 숫자 세 개를 입력해주세요 : ", count);
+			printf("\n(%d회차) 숫자 %d개를 입력해주세요 : ", count,NUMBERS);
 			scanf_s("%s", inputNum, unsigned _countof(inputNum));
-			while (!is3Numbers(inputNum, _countof(inputNum)) )
+			while (!isNumbers(inputNum, _countof(inputNum)) )
 			{
 				bufferClear();
-				printf("(%d회차) 세 자리 숫자를 입력해주세요 : ", count);
+				printf("(%d회차) 숫자 %d개를 입력해주세요 : ", count, NUMBERS);
 				scanf_s("%s", inputNum, unsigned _countof(inputNum));
 			}
 
 			charToInt(inputNum, playerGuess, _countof(inputNum), _countof(playerGuess));
 
-			if (checkAnswer(computerNum, playerGuess, _countof(computerNum)) == _countof(computerNum))
+			if (checkAnswer(computerNum, playerGuess, _countof(computerNum)) == NUMBERS)
 				state = End;
 			else
 				count++;
@@ -76,7 +82,7 @@ int main()
 			break;
 		}
 
-		case End:
+		case End: //게임 종료
 		{
 			printf("\n%d회 만에 정답을 맞췄습니다!\n컴퓨터의 숫자 :", count);
 			for (int i = 0; i < _countof(computerNum); i++)
@@ -98,8 +104,8 @@ int main()
 
 
 
-//입력된 것이 숫자 세 개인지 검사, 맞을 경우 true
-bool is3Numbers(char* str, int size)
+//입력된 것이 숫자인지 검사, 맞을 경우 true
+bool isNumbers(char* str, int size)
 {
 	for (int i = 0; i < size-1; i++)
 	{
