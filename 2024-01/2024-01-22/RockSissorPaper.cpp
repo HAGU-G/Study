@@ -7,6 +7,9 @@
 
 enum
 {
+	Rock = 1,
+	Scissor,
+	Paper,
 	Select,
 	Compare,
 	Result
@@ -23,8 +26,8 @@ int main()
 	int drawCount = 0;
 
 	//플레이어와 컴퓨터의 패
-	int player = 0;
-	int npc = 0;
+	int playerHand = 0;
+	int computerHand = 0;
 
 
 	while (true)
@@ -36,9 +39,9 @@ int main()
 			printf("\n--------------------------\n");
 			printf("바위 : 1\n가위 : 2\n보 : 3\n\n");
 			printf("안내면 진다, 가위바위보! : ");
-			scanf("%d", &player);
+			scanf_s("%d", &playerHand);
 
-			if (player >= 1 && player <= 3)
+			if (playerHand >= 1 && playerHand <= 3)
 				state = Compare;
 			else
 			{
@@ -52,25 +55,25 @@ int main()
 		case Compare:
 		{
 			srand(time(NULL));
-			npc = rand() % 3 + 1;
+			computerHand = rand() % 3 + 1;
 
-			if (npc - player == 1 || (player == 3 && npc == 1))
+			if (computerHand - playerHand == 1 || (playerHand == 3 && computerHand == 1))
 			{
-				printf("%d %d 승리\n", player, npc);
+				printf("%d %d 승리\n", playerHand, computerHand);
 				winCount++;
 				state = Select;
 			}
-			else if (player == npc)
+			else if (playerHand == computerHand)
 			{
 
-				printf("%d %d 무승부\n", player, npc);
+				printf("%d %d 무승부\n", playerHand, computerHand);
 				drawCount++;
 				state = Select;
 			}
 			else
 			{
 
-				printf("%d %d 패배\n", player, npc);
+				printf("%d %d 패배\n", playerHand, computerHand);
 				state = Result;
 			}
 
