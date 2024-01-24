@@ -43,7 +43,9 @@ public:
 	{
 		return r;
 	}
-	float GetG()
+	//상수형 함수 : 함수를 통해 인스턴스의 멤버의 데이터가 변경되지 않는다.
+	//상수형 멤버 함수 안에서는 상수형 멤버만 호출할 수 있다.
+	float GetG() const
 	{
 		return g;
 	}

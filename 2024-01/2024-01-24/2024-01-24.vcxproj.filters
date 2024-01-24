@@ -13,16 +13,36 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\practice">
+      <UniqueIdentifier>{a5d02029-74b7-4603-92e3-11cbbd299238}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="class4.cpp">
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="problem00.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\practice</Filter>
     </ClCompile>
     <ClCompile Include="class5.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\practice</Filter>
     </ClCompile>
+    <ClCompile Include="class4.cpp">
+      <Filter>소스 파일\practice</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Vector2.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
