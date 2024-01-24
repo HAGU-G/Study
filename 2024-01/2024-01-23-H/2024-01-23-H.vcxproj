@@ -24,6 +24,7 @@
     <ProjectGuid>{a26a49d7-744e-413a-8399-b78fae447bd2}</ProjectGuid>
     <RootNamespace>My20240123H</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>2024-01-24-H</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -127,11 +128,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BankAccount.cpp" />
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Student.cpp" />
+    <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BankAccount.h" />
     <ClInclude Include="Book.h" />
+    <ClInclude Include="Student.h" />
+    <ClInclude Include="Time.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
