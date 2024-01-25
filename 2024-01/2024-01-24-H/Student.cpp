@@ -1,7 +1,7 @@
 #include "Student.h"
 #include <iostream>
 
-Student::Student(std::string name, std::string studentID, std::string major) : name(name), studentID(studentID), major(major)
+Student::Student(const std::string& name, const std::string& studentID, const std::string& major) : name(name), studentID(studentID), major(major)
 {
 }
 

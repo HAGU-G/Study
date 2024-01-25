@@ -13,7 +13,7 @@ private:
 	std::string studentID;
 	std::string major;
 public:
-	Student(std::string name, std::string studentID, std::string major);
+	Student(const std::string& name, const std::string& studentID, const std::string& major);
 	void displayInfo();
 };
 

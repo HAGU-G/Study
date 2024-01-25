@@ -29,5 +29,7 @@ void BankAccount::withdraw(double amount)
 
 void BankAccount::displayAccount()
 {
+	std::cout << std::fixed;
+	std::cout.precision(1);
 	std::cout << "Account Number: " << accountNumber << std::endl << "Balance: " << balance << std::endl;
 }

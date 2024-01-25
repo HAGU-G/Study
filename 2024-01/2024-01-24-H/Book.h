@@ -15,7 +15,7 @@ private:
 	int pages;
 public:
 
-	Book(std::string title = "", std::string author = "", int pages = 0);
+	Book(const std::string& title = "", const std::string& author = "", int pages = 0);
 	void displayInfo();
 };
 

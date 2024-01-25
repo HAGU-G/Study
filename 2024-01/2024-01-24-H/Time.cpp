@@ -15,7 +15,7 @@ void Time::setTime(int h, int m, int s)
 {
 	if (h < 0 || m < 0 || s < 0 || h > 23 || m > 60 || s > 60)
 	{
-		std::cout << "(" << h << ":" << m << ":" << s << ") 유효한 시간이 아닙니다." << std::endl;
+		std::cout << "(" << h << ":" << m << ":" << s << ")는 유효한 시간이 아닙니다." << std::endl;
 	}
 	else
 	{
