@@ -1,5 +1,4 @@
 #include "Vector2.h"
-#include <iostream>
 
 
 //클래스의 정의부
@@ -22,19 +21,19 @@ float Vector2::GetY() const
 	return y;
 }
 
-Vector2 Vector2::operator+(const Vector2& rhs)
+Vector2 Vector2::operator+(const Vector2& rhs) const
 {
 	return Vector2(x + rhs.x, y + rhs.y);
 }
-Vector2 Vector2::operator-(const Vector2& rhs)
+Vector2 Vector2::operator-(const Vector2& rhs) const
 {
 	return Vector2(x - rhs.x, y - rhs.y);
 }
-Vector2 Vector2::operator*(float scalar)
+Vector2 Vector2::operator*(float scalar) const
 {
 	return Vector2(x * scalar, y * scalar);
 }
-Vector2 Vector2::operator/(float scalar)
+Vector2 Vector2::operator/(float scalar) const
 {
 	return Vector2(x / scalar, y / scalar);
 }
@@ -86,6 +85,26 @@ bool Vector2::operator!=(const Vector2& rhs) const
 	return !(*this == rhs);
 }
 
+bool Vector2::operator>(const Vector2& rhs) const
+{
+	return x * x + y * y > rhs.x * rhs.x + rhs.y * rhs.y;
+}
+
+bool Vector2::operator>=(const Vector2& rhs) const
+{
+	return x * x + y * y >= rhs.x * rhs.x + rhs.y * rhs.y;
+}
+
+bool Vector2::operator<(const Vector2& rhs) const
+{
+	return x * x + y * y < rhs.x * rhs.x + rhs.y * rhs.y;
+
+}
+
+bool Vector2::operator<=(const Vector2& rhs) const
+{
+	return x * x + y * y <= rhs.x * rhs.x + rhs.y * rhs.y;
+}
 
 //---------전역---------
 

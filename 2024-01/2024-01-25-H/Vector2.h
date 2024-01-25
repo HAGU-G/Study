@@ -15,10 +15,10 @@ public:
 	float GetX() const;
 	float GetY() const;
 
-	Vector2 operator+(const Vector2& rhs);
-	Vector2 operator-(const Vector2& rhs);
-	Vector2 operator*(float scalar);
-	Vector2 operator/(float scalar);
+	Vector2 operator+(const Vector2& rhs) const;
+	Vector2 operator-(const Vector2& rhs) const;
+	Vector2 operator*(float scalar) const;
+	Vector2 operator/(float scalar) const;
 
 	Vector2 operator+();
 	Vector2 operator-();
@@ -30,6 +30,10 @@ public:
 
 	bool operator==(const Vector2& rhs) const;
 	bool operator!=(const Vector2& rhs) const;
+	bool operator>(const Vector2 & rhs) const;
+	bool operator>=(const Vector2& rhs) const;
+	bool operator<(const Vector2& rhs) const;
+	bool operator<=(const Vector2& rhs) const;
 
 	friend std::istream& operator>>(std::istream& a, Vector2& rhs); //해당 함수가 private 멤버에 접근할 수 있도록 해준다.
 };
