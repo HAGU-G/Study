@@ -8,20 +8,6 @@
 
 int main()
 {
-	//Color red(1.0f, 0.0f, 0.0f);
-	//Color blue(0.0f, 0.0f, 1.0f);
-	//Color purple = Color::MixColors(red, blue);
-
-	//unsigned int color32 = Color::GetColor32(purple);
-	//std::cout << std::hex << std::setfill('0') << std::setw(8) << color32 << std::endl; //16진수 형태로 나오도록 (FF000000)
-
-	//Color color = Color::GetColor(color32);
-	//color.Print();	// (1.0, 0.0, 0.0)
-
-	//Vector2 point(10, 20);
-	//std::cout << point.GetX() << point.GetY() << std::endl;
-
-
 	Vector2 a(2, 3);
 	Vector2 b(4, 5);
 
@@ -29,12 +15,34 @@ int main()
 	Vector2 ret2 = a.Add(b);
 	Vector2 ret3 = Add(a, b);
 	Vector2 ret4 = a + b;
+	Vector2 ret5 = a - b;
 
-	ret1.Print();
-	ret2.Print();
-	ret3.Print();
-	ret4.Print();
-	
+	Vector2 ret6 = a * 3.f;
+	Vector2 ret7 = 3.f * a;
+	Vector2 ret8 = ret6 / 3.f;
+
+	Vector2 ret9 = -ret8;
+	Vector2 ret10 = +ret9;
+
+	ret6.Print();
+	ret7.Print();
+	ret8.Print();
+	ret9.Print();
+	ret10.Print();
+	std::cout << (ret9 == ret10) << std::endl;
+	std::cout << (ret9 != ret10) << std::endl;
+
+
+	Vector2 ret11;
+	ret11 -= ret8;
+	ret11 -= 3.f;
+
+	ret11.Print();
+
+	++ret11;
+
+
+	std::cout << ret9 << std::endl;
 
 	return 0;
 }
