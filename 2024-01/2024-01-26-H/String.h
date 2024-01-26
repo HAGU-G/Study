@@ -24,5 +24,8 @@ public:
 
 	String& operator=(const String& rhs); //복사 대입 연산자
 	String& operator=(String&& rhs); //이동 대입 연산자
+	
+	String& operator+(const String& rhs);
 };
 
+	/*std::ostream& operator<<(const std::ostream& print ,const String& rhs);*/

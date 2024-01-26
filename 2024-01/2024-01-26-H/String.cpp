@@ -105,3 +105,28 @@ String& String::operator=(String&& rhs)
 	rhs.strData = nullptr;
 	return *this;
 }
+
+String& String::operator+(const String& rhs)
+{
+	char* temp = new char[len + 1];
+	strcpy_s(temp, len + 1, strData);
+
+	if (strData)
+	{
+		delete[] strData;
+		strData = nullptr;
+	}
+
+	len += rhs.len;
+	strData = new char[len + 1];
+	strcpy_s(strData, len + 1, temp);
+	strcat_s(strData, len + 1, rhs.strData);
+
+	delete[] temp;
+	return *this;
+}
+
+//std::ostream& operator<<(const std::ostream& print, const String& rhs)
+//{
+//	return print;
+//}
