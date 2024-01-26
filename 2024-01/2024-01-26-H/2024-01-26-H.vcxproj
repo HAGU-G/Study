@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{24d88ac4-02a5-4d1c-9f2a-32fae56ef16a}</ProjectGuid>
-    <RootNamespace>My20240126</RootNamespace>
+    <ProjectGuid>{e981f902-8a3f-4e79-8cd9-02cf881ba770}</ProjectGuid>
+    <RootNamespace>My20240126H</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,17 +127,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="main.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="main2.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="String.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Item.h" />
     <ClInclude Include="String.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
