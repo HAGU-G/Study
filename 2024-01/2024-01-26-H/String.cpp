@@ -63,7 +63,7 @@ void String::Alloc(const String& ref)
 void String::Alloc(const char* str)
 {
 	if(str)
-		Alloc(str, strlen(str));
+		Alloc(str, (int)strlen(str));
 }
 
 //----------public----------
@@ -82,7 +82,7 @@ String::String(const String& ref)
 {
 	Alloc(ref);
 }
-String::String(String&& ref)
+String::String(String&& ref) noexcept
 	: strData(ref.strData), len(ref.len)
 {
 	ref.strData = nullptr; //Áß¿ä!
@@ -110,7 +110,7 @@ String& String::operator=(const String& rhs)
 	Alloc(rhs);
 	return *this;
 }
-String& String::operator=(String&& rhs)
+String& String::operator=(String&& rhs) noexcept
 {
 
 	strData = rhs.strData;
@@ -180,7 +180,7 @@ std::ostream& operator<<(std::ostream& print, const String& rhs)
 std::istream& operator>>(std::istream& scan, String& rhs)
 {
 	char first = scan.rdbuf()->sgetc();
-	int bufLen = scan.rdbuf()->in_avail();
+	unsigned long long bufLen = scan.rdbuf()->in_avail();
 	char* reader = new char[bufLen];
 	reader[0] = first;
 	for (int i = 1; i < bufLen - 1; i++)

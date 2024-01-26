@@ -18,7 +18,7 @@ private:
 public:
 	String();
 	String(const String& ref); //복사 생성자
-	String(String&& ref); //이동 생성자
+	String(String&& ref) noexcept; //이동 생성자
 	String(const char* str);
 	~String();
 
@@ -28,7 +28,7 @@ public:
 	int GetLen() const;
 
 	String& operator=(const String& rhs); //복사 대입 연산자
-	String& operator=(String&& rhs);	  //이동 대입 연산자
+	String& operator=(String&& rhs) noexcept;	  //이동 대입 연산자
 	
 	String& operator+=(const String& rhs);
 	String operator+(const String& rhs); //+= 오버로딩을 사용해서 간단하게 구현했다.
