@@ -6,8 +6,10 @@ Student::Student(const char* name, const char* studentID, const char* major)
 {
 	this->name = new char[strlen(name) + 1];
 	strcpy_s(this->name, strlen(name) + 1, name);
+	
 	this->studentID = new char[strlen(studentID) + 1];
 	strcpy_s(this->studentID, strlen(studentID) + 1, studentID);
+
 	this->major = new char[strlen(major) + 1];
 	strcpy_s(this->major, strlen(major) + 1, major);
 }
