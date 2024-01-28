@@ -45,7 +45,6 @@ int main(void)
 	strD = "DDDD"; //이동 대입 연산자
 	String str5 = strD;
 
-
 	std::cout << strC + " " << strD + " " << str5 << endl;
 	std::cout << strC << strD << str5 << endl;
 	std::cout << "D == 5 " << (strD == str5) << endl;
