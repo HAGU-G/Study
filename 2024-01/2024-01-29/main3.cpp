@@ -7,7 +7,7 @@ struct Base
 
 struct Derived1 : public Base
 {
-	float x = 3.14;
+	float x = 3.14f;
 };
 
 struct Derived2 : public Base
@@ -23,6 +23,7 @@ int main()
 	std::cout << d1->x << std::endl;
 
 	Derived2* d2 = (Derived2*)b;
+	Derived1* d1 = dynamic_cast<Derived1*>(b);
 	std::cout << d2->y << std::endl;
 
 	return 0;
