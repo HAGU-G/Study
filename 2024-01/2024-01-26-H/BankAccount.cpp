@@ -22,7 +22,8 @@ BankAccount::BankAccount(BankAccount&& ref) noexcept
 
 BankAccount::~BankAccount()
 {
-	delete[] accountNumber;
+	if(accountNumber)
+		delete[] accountNumber; //nullptr인 경우가 있을 수 있으므로 널체크를 해주는 것이 좋다.
 	accountNumber = nullptr;
 }
 

@@ -67,10 +67,6 @@ void String::Alloc(const char* str)
 }
 
 //----------public----------
-static void test()
-{
-	this.
-}
 
 String::String()
 	: strData(nullptr), len(0)

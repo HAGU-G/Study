@@ -35,9 +35,12 @@ Student::Student(Student&& ref) noexcept
 
 Student::~Student()
 {
-	delete[] name;
-	delete[] studentID;
-	delete[] major;
+	if (name)
+		delete[] name;
+	if (studentID)
+		delete[] studentID;
+	if (major)
+		delete[] major;
 	name = nullptr;
 	studentID = nullptr;
 	major = nullptr;

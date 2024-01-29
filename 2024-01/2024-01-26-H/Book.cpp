@@ -26,8 +26,10 @@ Book::Book(Book&& ref) noexcept
 
 Book::~Book()
 {
-	delete[] title;
-	delete[] author;
+	if (title)
+		delete[] title;
+	if (author)
+		delete[] author;
 	title = nullptr;
 	author = nullptr;
 }
