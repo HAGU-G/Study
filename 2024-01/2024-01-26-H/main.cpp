@@ -15,6 +15,9 @@ Student PleaseMove()
 
 int main(void)
 {
+	Student a("ssd","ssd","ssd");
+	a = a;
+
 	String strA;
 	String strB;
 	cout << strA + strB << endl;

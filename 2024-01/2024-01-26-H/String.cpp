@@ -5,7 +5,7 @@
 
 void String::Release()
 {
-	if(strData)
+	if (strData)
 		delete[] strData;
 	strData = nullptr;
 }
@@ -14,7 +14,7 @@ int String::Compare(const String& ref) const
 {
 	const char* lhs = strData ? strData : "";
 	const char* rhs = ref.strData ? ref.strData : "";
-	
+
 	return 	strcmp(lhs, rhs);
 }
 
@@ -40,7 +40,7 @@ void String::Alloc(const String& ref)
 }
 void String::Alloc(const char* str)
 {
-	if(str)
+	if (str)
 		Alloc(str, (int)strlen(str));
 }
 
@@ -90,15 +90,13 @@ String& String::operator=(const String& rhs)
 }
 String& String::operator=(String&& rhs) noexcept
 {
-	if (strData != rhs.strData)
-	{
-		Release();
-		strData = rhs.strData;
-		len = rhs.len;
+	Release();
+	strData = rhs.strData;
+	len = rhs.len;
 
-		rhs.strData = nullptr;
-		rhs.len = 0;
-	}
+	rhs.strData = nullptr;
+	rhs.len = 0;
+
 	return *this;
 }
 

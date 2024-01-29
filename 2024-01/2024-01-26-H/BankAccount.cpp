@@ -3,15 +3,22 @@
 
 BankAccount::BankAccount(const char* accountNumber, double balance) : accountNumber(nullptr), balance(balance)
 {
-	this->accountNumber = new char[strlen(accountNumber) + 1];
-	strcpy_s(this->accountNumber, strlen(accountNumber) + 1, accountNumber);
+
+	if (accountNumber)
+	{
+		this->accountNumber = new char[strlen(accountNumber) + 1];
+		strcpy_s(this->accountNumber, strlen(accountNumber) + 1, accountNumber);
+	}
 }
 
 BankAccount::BankAccount(const BankAccount& ref)
 	:accountNumber(nullptr), balance(ref.balance)
 {
-	accountNumber = new char[strlen(ref.accountNumber) + 1];
-	strcpy_s(accountNumber, strlen(ref.accountNumber) + 1, ref.accountNumber);
+	if (ref.accountNumber)
+	{
+		accountNumber = new char[strlen(ref.accountNumber) + 1];
+		strcpy_s(accountNumber, strlen(ref.accountNumber) + 1, ref.accountNumber);
+	}
 }
 
 BankAccount::BankAccount(BankAccount&& ref) noexcept
@@ -63,16 +70,23 @@ void BankAccount::displayAccount() const
 
 BankAccount& BankAccount::operator=(const BankAccount& ref)
 {
-	accountNumber = new char[strlen(ref.accountNumber) + 1];
-	strcpy_s(accountNumber, strlen(ref.accountNumber) + 1, ref.accountNumber);
-	balance = ref.balance;
-	return *this;
+
+	if (ref.accountNumber && accountNumber != ref.accountNumber)
+	{
+		accountNumber = new char[strlen(ref.accountNumber) + 1];
+		strcpy_s(accountNumber, strlen(ref.accountNumber) + 1, ref.accountNumber);
+		balance = ref.balance;
+		return *this;
+	}
 }
 
 BankAccount& BankAccount::operator=(BankAccount&& ref) noexcept
 {
 	accountNumber = ref.accountNumber;
 	balance = ref.balance;
+
 	ref.accountNumber = nullptr;
+	ref.balance = 0;
+
 	return *this;
 }
