@@ -12,10 +12,16 @@ Book::Book(const char* title, const char* author, int pages) : title(nullptr), a
 Book::Book(const Book& ref)
 	:title(nullptr), author(nullptr), pages(ref.pages)
 {
-	title = new char[strlen(ref.title) + 1];
-	strcpy_s(title, strlen(ref.title) + 1, ref.title);
-	author = new char[strlen(ref.author) + 1];
-	strcpy_s(author, strlen(ref.author) + 1, ref.author);
+	if (title && author && ref.title && ref.author)
+	{
+		delete[] title;
+		delete[] author;
+
+		title = new char[strlen(ref.title) + 1];
+		strcpy_s(title, strlen(ref.title) + 1, ref.title);
+		author = new char[strlen(ref.author) + 1];
+		strcpy_s(author, strlen(ref.author) + 1, ref.author);
+	}
 }
 
 Book::Book(Book&& ref) noexcept

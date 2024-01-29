@@ -17,14 +17,18 @@ Student::Student(const char* name, const char* studentID, const char* major)
 Student::Student(const Student& ref)
 	: name(nullptr), studentID(nullptr), major(nullptr)
 {
-	name = new char[strlen(ref.name) + 1];
-	strcpy_s(name, strlen(ref.name) + 1, ref.name);
+	//? 널포인터 만들어놓고 널체크하면 어떡함
+	if (ref.name && ref.studentID && ref.major)
+	{
+		name = new char[strlen(ref.name) + 1];
+		strcpy_s(name, strlen(ref.name) + 1, ref.name);
 
-	studentID = new char[strlen(ref.studentID) + 1];
-	strcpy_s(studentID, strlen(ref.studentID) + 1, ref.studentID);
+		studentID = new char[strlen(ref.studentID) + 1];
+		strcpy_s(studentID, strlen(ref.studentID) + 1, ref.studentID);
 
-	major = new char[strlen(ref.major) + 1];
-	strcpy_s(major, strlen(ref.major) + 1, ref.major);
+		major = new char[strlen(ref.major) + 1];
+		strcpy_s(major, strlen(ref.major) + 1, ref.major);
+	}
 }
 
 Student::Student(Student&& ref) noexcept
