@@ -1,6 +1,6 @@
 #include "Point.h"
 
-Point::Point(float x, float y)
+explicit Point::Point(double x, double y)
 	:x(x), y(y)
 {
 }
@@ -13,8 +13,8 @@ Point::Point(const Point& ref)
 Point::Point(Point&& ref) noexcept
 	:x(ref.x), y(ref.y)
 {
-	ref.x = 0;
-	ref.y = 0;
+	ref.x = 0.0;
+	ref.y = 0.0;
 }
 
 bool Point::operator==(const Point& point) const
@@ -34,8 +34,8 @@ Point& Point::operator=(Point&& ref) noexcept
 	x = ref.x;
 	y = ref.y;
 
-	ref.x = 0;
-	ref.y = 0;
+	ref.x = 0.0;
+	ref.y = 0.0;
 	return *this;
 }
 

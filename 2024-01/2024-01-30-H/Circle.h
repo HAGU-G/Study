@@ -5,20 +5,20 @@ class Circle : public Shape
 {
 protected:
 	Point center;
-	unsigned int radius;
+	double radius;
 public:
-	Circle(Point* pos1, unsigned int r);
+	Circle(Point* pos1, double r);
 	Circle(const Circle& ref);
 	Circle(Circle&& ref) noexcept;
 	inline virtual ~Circle() {}
 
 	void SetCenter(const Point& pos);
-	void SetRadius(unsigned int r);
+	void SetRadius(double r);
 
-	Point GetCenter() const;
-	unsigned int GetRadius() const;
-	float Area() const override;
-	float Round() const override;
+	Point GetCenter() const override;
+	double GetRadius() const;
+	double Area() const override;
+	double Round() const override;
 
 	Circle& operator=(const Circle& ref);
 	Circle& operator=(Circle&& ref) noexcept;

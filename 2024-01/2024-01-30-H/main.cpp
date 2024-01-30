@@ -6,20 +6,27 @@
 #include "Circle.h"
 #include "Ring.h"
 
-//String 테스트 코드
+//테스트 코드
 void TestString();
-void TestShape();
+void TestShapeMain();
+void TestShapeEtc();
 
 int main()
 {
-	TestString();
-	TestShape();
-
+	std::cout << "======String======" << std::endl;
+	//TestString();
+	std::cout << std::endl;
+	std::cout << "======Shape main======" << std::endl;
+	//TestShapeMain();
+	std::cout << std::endl;
+	std::cout << "======Shape etc.======" << std::endl;
+	TestShapeEtc();
+	std::cout << std::endl;
 	return 0;
 }
 
 
-//String 테스트 코드
+
 void TestString()
 {
 
@@ -66,7 +73,7 @@ void TestString()
 	return;
 }
 
-void TestShape()
+void TestShapeMain()
 {
 	Point* pos1 = new Point(-10, 10);
 	Point* pos2 = new Point(10, -10);
@@ -93,4 +100,23 @@ void TestShape()
 	delete pos1;
 
 	return;
+}
+
+void TestShapeEtc()
+{
+	Rectangle rect1 = Rectangle(&Point(2, -3), &Point(-4, 8));
+	std::cout << rect1 << std::endl;
+	Rectangle rect2 = rect1; //복사 생성자
+	std::cout << rect2 << std::endl;
+	std::cout << rect2.GetCenter() << std::endl;
+	std::cout << rect2.GetLT() << rect2.GetRT() << rect2.GetLB() << rect2.GetRB() << std::endl;
+	rect2.SetLT((2, 3)); //원래 좌상단은 (-4, 8)이다. (2, 3)은 우측의 x좌표와 같기 때문에 할당하지 않는다.
+	rect2.SetLT((1, 4));
+
+
+
+	rect1 = rect2; //대입 연산자
+	std::cout << rect1 << std::endl;
+
+
 }

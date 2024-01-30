@@ -20,17 +20,18 @@ public:
 	void SetLB(const Point& pos);
 	void SetRT(const Point& pos);
 	void SetRB(const Point& pos);
-	void SetTopY(float topY);
-	void SetBottomY(float bottomY);
-	void SetLeftX(float leftX);
-	void SetRightX(float rightX);
+	void SetTopY(double topY);
+	void SetBottomY(double bottomY);
+	void SetLeftX(double leftX);
+	void SetRightX(double rightX);
 
 	Point GetLT() const;
 	Point GetLB() const;
 	Point GetRT() const;
 	Point GetRB() const;
-	float Area() const override;
-	float Round() const override;
+	Point GetCenter() const override;
+	double Area() const override;
+	double Round() const override;
 
 	Rectangle& operator=(const Rectangle& ref);
 	Rectangle& operator=(Rectangle&& ref) noexcept;

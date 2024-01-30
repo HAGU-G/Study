@@ -47,6 +47,7 @@ std::ostream& operator<<(std::ostream& cout, const Point& point)
 	return cout;
 }
 
+
 float Distance(const Point& p1, const Point& p2)
 {
 	return sqrtf(powf(p1.x - p2.x, 2) + powf(p1.y - p2.y, 2));

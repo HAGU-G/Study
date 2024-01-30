@@ -1,36 +1,38 @@
 #include "Ring.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 Ring::Ring(Circle* c1, Circle* c2)
-	:center(), insideCircle(nullptr, 0), outsideCircle(nullptr, 0)
+	:center(), smallRadius(0.0), largeRadius(0.0)
 {
 	if (c1 && c2 && c1->GetCenter() == c2->GetCenter() && c1->GetRadius() != c2->GetRadius())
 	{
 		center = c1->GetCenter();
 		if (c1->GetRadius() > c2->GetRadius())
 		{
-			outsideCircle = *c1;
-			insideCircle = *c2;
+			largeRadius = c1->GetRadius();
+			smallRadius = c2->GetRadius();
 		}
 		else
 		{
-			outsideCircle = *c2;
-			insideCircle = *c1;
+			largeRadius = c2->GetRadius();
+			smallRadius = c1->GetRadius();
 		}
 	}
 
 }
 
 Ring::Ring(const Ring& ref)
-	:center(ref.center), insideCircle(ref.insideCircle), outsideCircle(ref.outsideCircle)
+	:center(ref.center), smallRadius(ref.smallRadius), largeRadius(ref.largeRadius)
 {
 }
 
 Ring::Ring(Ring&& ref) noexcept
-	:center(ref.center), insideCircle(ref.insideCircle), outsideCircle(ref.outsideCircle)
+	:center(ref.center), smallRadius(ref.smallRadius), largeRadius(ref.largeRadius)
 {
 	ref.center = Point();
-	ref.insideCircle = Circle(nullptr, 0);
-	ref.outsideCircle = Circle(nullptr, 0);
+	ref.smallRadius = 0;
+	ref.largeRadius = 0;
 }
 
 Ring::~Ring()
@@ -42,14 +44,16 @@ void Ring::SetCenter(const Point& pos)
 	center = pos;
 }
 
-void Ring::SetInsideCircle(const Circle& circle)
+void Ring::SetSmallRadius(double r)
 {
-	insideCircle = circle;
+	if (r < largeRadius)
+		smallRadius = r;
 }
 
-void Ring::SetOutsideCircle(const Circle& circle)
+void Ring::SetLargeRadius(double R)
 {
-	outsideCircle = circle;
+	if (R > smallRadius)
+		largeRadius = R;
 }
 
 Point Ring::GetCenter() const
@@ -57,31 +61,31 @@ Point Ring::GetCenter() const
 	return center;
 }
 
-Circle Ring::GetInsideCircle() const
+double Ring::GetSmallRadius() const
 {
-	return insideCircle;
+	return smallRadius;
 }
 
-Circle Ring::GetOutsideCircle() const
+double Ring::GetLargeRadius() const
 {
-	return outsideCircle;
+	return largeRadius;
 }
 
-float Ring::Area() const
+double Ring::Area() const
 {
-	return outsideCircle.Area() - insideCircle.Area();
+	return pow(largeRadius, 2) * M_PI - pow(smallRadius, 2) * M_PI;
 }
 
-float Ring::Round() const
+double Ring::Round() const
 {
-	return outsideCircle.Round() + insideCircle.Round();
+	return 2.0 * M_PI * largeRadius + 2.0 * M_PI * smallRadius;
 }
 
 Ring& Ring::operator=(const Ring& ref)
 {
 	center = ref.center;
-	insideCircle = ref.insideCircle;
-	outsideCircle = ref.outsideCircle;
+	smallRadius = ref.smallRadius;
+	largeRadius = ref.largeRadius;
 
 	return *this;
 }
@@ -89,12 +93,12 @@ Ring& Ring::operator=(const Ring& ref)
 Ring& Ring::operator=(Ring&& ref) noexcept
 {
 	center = ref.center;
-	insideCircle = ref.insideCircle;
-	outsideCircle = ref.outsideCircle;
+	smallRadius = ref.smallRadius;
+	largeRadius = ref.largeRadius;
 
 	ref.center = Point();
-	ref.insideCircle = Circle(nullptr, 0);
-	ref.outsideCircle = Circle(nullptr, 0);
+	ref.smallRadius = 0.0;
+	ref.largeRadius = 0.0;
 
 	return *this;
 }
@@ -106,6 +110,6 @@ void Ring::Print(std::ostream& cout) const
 
 std::ostream& operator<<(std::ostream& cout, const Ring& ring)
 {
-	cout << "type: Ring" << std::endl << "center: " << ring.center << std::endl << "radius (in, out): (" << ring.insideCircle.GetRadius() << ", " << ring.outsideCircle.GetRadius() << ")";
+	cout << "type: Ring" << std::endl << "center: " << ring.center << std::endl << "radius (samll, large): (" << ring.smallRadius << ", " << ring.largeRadius << ")";
 	return cout;
 }

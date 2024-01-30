@@ -6,8 +6,8 @@ class Ring : public Shape
 {
 protected:
 	Point center;
-	Circle insideCircle;
-	Circle outsideCircle;
+	double smallRadius;
+	double largeRadius;
 
 public:
 	Ring(Circle* c1, Circle* c2);
@@ -16,14 +16,14 @@ public:
 	virtual ~Ring();
 	
 	void SetCenter(const Point& pos);
-	void SetInsideCircle(const Circle& circle);
-	void SetOutsideCircle(const Circle& circle);
+	void SetSmallRadius(double r);
+	void SetLargeRadius(double R);
 
-	Point GetCenter() const;
-	Circle GetInsideCircle() const;
-	Circle GetOutsideCircle() const;
-	float Area() const override;
-	float Round() const override;
+	Point GetCenter() const override;
+	double GetSmallRadius() const;
+	double GetLargeRadius() const;
+	double Area() const override;
+	double Round() const override;
 	
 	Ring& operator=(const Ring& ref);
 	Ring& operator=(Ring&& ref) noexcept;

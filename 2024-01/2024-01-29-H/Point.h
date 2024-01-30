@@ -16,4 +16,5 @@ public:
 };
 
 std::ostream& operator<<(std::ostream& cout, const Point& point);
+
 float Distance(const Point& p1, const Point& p2);

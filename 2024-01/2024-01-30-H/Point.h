@@ -3,10 +3,10 @@
 
 struct Point
 {
-	float x;
-	float y;
+	double x;
+	double y;
 
-	Point(float x = 0.f, float y = 0.f);
+	explicit Point(double x = 0.0, double y = 0.0);
 	Point(const Point& ref);
 	Point(Point&& ref) noexcept;
 

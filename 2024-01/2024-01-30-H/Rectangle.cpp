@@ -110,25 +110,25 @@ void Rectangle::SetRB(const Point& pos)
 	}
 }
 
-void Rectangle::SetTopY(float topY)
+void Rectangle::SetTopY(double topY)
 {
 	if (topY > LB.y)
 		LT.y = RT.y = topY;
 }
 
-void Rectangle::SetBottomY(float bottomY)
+void Rectangle::SetBottomY(double bottomY)
 {
 	if (bottomY < LT.y)
 		LB.y = RB.y = bottomY;
 }
 
-void Rectangle::SetLeftX(float leftX)
+void Rectangle::SetLeftX(double leftX)
 {
 	if (leftX > RT.x)
 		LT.x = RB.x = leftX;
 }
 
-void Rectangle::SetRightX(float rightX)
+void Rectangle::SetRightX(double rightX)
 {
 	if (rightX > LT.x)
 		RT.x = RB.x = rightX;
@@ -154,14 +154,19 @@ Point Rectangle::GetRB() const
 	return RB;
 }
 
-float Rectangle::Area() const
+Point Rectangle::GetCenter() const
+{
+	return Point((RT.x + LB.x) / 2.0, (RT.y + RB.y) / 2.0);
+}
+
+double Rectangle::Area() const
 {
 	return (RT.x - LB.x) * (RT.y - LB.y);
 }
 
-float Rectangle::Round() const
+double Rectangle::Round() const
 {
-	return 2 * ((RT.x - LB.x) + (RT.y - LB.y));
+	return 2.0 * ((RT.x - LB.x) + (RT.y - LB.y));
 }
 
 Rectangle& Rectangle::operator=(const Rectangle& ref)

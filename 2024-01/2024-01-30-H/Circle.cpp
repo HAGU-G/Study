@@ -1,11 +1,14 @@
 #include "Circle.h"
-#define PI (3.14159265f)
+#define _USE_MATH_DEFINES
+#include <math.h>
 
-Circle::Circle(Point* pos1, unsigned int r)
-	:center(), radius(r)
+Circle::Circle(Point* pos1, double r)
+	:center(), radius(0)
 {
 	if (pos1)
 		center = *pos1;
+	if (r > 0.0)
+		radius = r;
 }
 
 Circle::Circle(const Circle& ref)
@@ -27,19 +30,20 @@ void Circle::SetCenter(const Point& pos)
 	center = pos;
 }
 
-void Circle::SetRadius(unsigned int r)
+void Circle::SetRadius(double r)
 {
-	radius = r;
+	if (r > 0.0)
+		radius = r;
 }
 
-float Circle::Area() const
+double Circle::Area() const
 {
-	return PI * radius * radius;
+	return M_PI * pow(radius, 2);
 }
 
-float Circle::Round() const
+double Circle::Round() const
 {
-	return 2 * PI * radius;
+	return 2.0 * M_PI * radius;
 }
 
 Point Circle::GetCenter() const
@@ -47,7 +51,7 @@ Point Circle::GetCenter() const
 	return center;
 }
 
-unsigned int Circle::GetRadius() const
+double Circle::GetRadius() const
 {
 	return radius;
 }
@@ -64,9 +68,9 @@ Circle& Circle::operator=(Circle&& ref) noexcept
 	center = ref.center;
 	radius = ref.radius;
 
-	ref.center.x = 0;
-	ref.center.y = 0;
-	ref.radius = 0;
+	ref.center.x = 0.0;
+	ref.center.y = 0.0;
+	ref.radius = 0.0;
 
 	return *this;
 }
