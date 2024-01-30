@@ -15,18 +15,19 @@ void TestCircleRingEtc();
 
 int main()
 {
-	std::cout << "====== String ======" << std::endl;
+	std::cout << "========== String ==========" << std::endl;
 	TestString();
 	std::cout << std::endl;
-	std::cout << "====== Shape main ======" << std::endl;
+	std::cout << "========== Shape main ==========" << std::endl;
 	TestShapeMain();
 	std::cout << std::endl;
 
 	//기타 동작 확인을 위한 테스트 코드
-	std::cout << "====== Shape etc. ======" << std::endl;
+	std::cout << "========== Shape etc. ==========" << std::endl;
 	TestRectangleEtc();
 	TestCircleRingEtc();
 	std::cout << std::endl;
+
 	return 0;
 }
 
@@ -109,7 +110,7 @@ void TestShapeMain()
 
 void TestRectangleEtc()
 {
-	std::cout << std::endl << "====== Rectangle ======" << std::endl;
+	std::cout << std::endl << "=============== Rectangle" << std::endl;
 	Rectangle rect1 = Rectangle(Point(2, -3), Point(-4, 8));
 	Rectangle rect2 = rect1; //복사 생성자
 	std::cout << rect2 << std::endl;
@@ -137,7 +138,7 @@ void TestCircleRingEtc()
 	circle2 = circle1; //대입 연산자
 	circle2 = Circle(Point(1, 2), 4); //이동 대입 연산자
 
-	std::cout << std::endl << "====== Ring ======" << std::endl;
+	std::cout << std::endl << "=============== Ring" << std::endl;
 	Ring ring1(&circle1, &circle2); //동심원이 아니기 때문에 ring1의 모든 멤버변수는 0이 된다.
 	std::cout << ring1 << std::endl;
 	circle2.SetCenter(Point(1, 1));
@@ -152,7 +153,7 @@ void TestCircleRingEtc()
 	ring1 = ring2; //대입 연산자
 	std::cout << ring1 << std::endl;
 
-	std::cout << std::endl << "====== Circle ======" << std::endl;
+	std::cout << std::endl << "=============== Circle" << std::endl;
 
 	circle1.SetCenter(Point(3, 4));
 	std::cout << circle1 << std::endl;
