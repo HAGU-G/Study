@@ -13,7 +13,6 @@ void TestShape();
 int main()
 {
 	TestString();
-	
 	TestShape();
 
 	return 0;
