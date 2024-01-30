@@ -12,10 +12,9 @@ void TestShape();
 
 int main()
 {
-	//TestString();
+	TestString();
+	
 	TestShape();
-
-	//넌 Ring 수정하고 있었다 기억해라.
 
 	return 0;
 }

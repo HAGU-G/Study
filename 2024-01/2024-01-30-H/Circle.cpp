@@ -2,8 +2,10 @@
 #define PI (3.14159265f)
 
 Circle::Circle(Point* pos1, unsigned int r)
-	:center(pos1->x, pos1->y), radius(r)
+	:center(), radius(r)
 {
+	if (pos1)
+		center = *pos1;
 }
 
 Circle::Circle(const Circle& ref)
@@ -18,6 +20,16 @@ Circle::Circle(Circle&& ref) noexcept
 	ref.center.x = 0;
 	ref.center.y = 0;
 	ref.radius = 0;
+}
+
+void Circle::SetCenter(const Point& pos)
+{
+	center = pos;
+}
+
+void Circle::SetRadius(unsigned int r)
+{
+	radius = r;
 }
 
 float Circle::Area() const
@@ -66,7 +78,7 @@ void Circle::Print(std::ostream& cout) const
 
 std::ostream& operator<<(std::ostream& cout, const Circle& circle)
 {
-	cout << "type: Circle" << std::endl << "center: " << circle.GetCenter() << std::endl <<"radius: "<<circle.GetRadius();
+	cout << "type: Circle" << std::endl << "center: " << circle.center << std::endl <<"radius: "<<circle.radius;
 
 	return cout;
 }

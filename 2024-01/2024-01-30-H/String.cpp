@@ -103,23 +103,15 @@ String& String::operator=(String&& rhs) noexcept
 
 String& String::operator+=(const String& rhs)
 {
+	const char* lhsTemp = strData ? strData : "";
+	const char* rhsTemp = rhs.strData ? rhs.strData : "";
 
-	if (rhs.strData)
-	{
-		if (strData == rhs.strData)
-		{
-			char* temp = new char[2 * len + 1];
-			strcpy_s(temp, (size_t)(2 * len + 1), strData);
-			strcat_s(temp, (size_t)(2 * len + 1), strData);
-			Alloc(temp);
-		}
-		else
-		{
-			Alloc(strData, len + rhs.len);
-			//len º¯°æµÊ.
-			strcat_s(strData, (size_t)len + 1, rhs.strData);
-		}
-	}
+	char* temp = new char[strlen(lhsTemp) + strlen(rhsTemp) + 1];
+	strcpy_s(temp, (size_t)(strlen(lhsTemp) + strlen(rhsTemp) + 1), lhsTemp);
+	strcat_s(temp, (size_t)(strlen(lhsTemp) + strlen(rhsTemp) + 1), rhsTemp);
+	Alloc(temp);
+	delete[] temp;
+
 	return *this;
 }
 String String::operator+(const String& rhs)

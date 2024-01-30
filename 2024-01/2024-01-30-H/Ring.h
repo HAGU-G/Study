@@ -15,9 +15,13 @@ public:
 	Ring(Ring&& ref) noexcept;
 	virtual ~Ring();
 	
-	Point GetCenter();
-	Circle GetInsideCircle();
-	Circle GetOutsideCircle();
+	void SetCenter(const Point& pos);
+	void SetInsideCircle(const Circle& circle);
+	void SetOutsideCircle(const Circle& circle);
+
+	Point GetCenter() const;
+	Circle GetInsideCircle() const;
+	Circle GetOutsideCircle() const;
 	float Area() const override;
 	float Round() const override;
 	

@@ -12,6 +12,9 @@ public:
 	Circle(Circle&& ref) noexcept;
 	inline virtual ~Circle() {}
 
+	void SetCenter(const Point& pos);
+	void SetRadius(unsigned int r);
+
 	Point GetCenter() const;
 	unsigned int GetRadius() const;
 	float Area() const override;
@@ -21,6 +24,7 @@ public:
 	Circle& operator=(Circle&& ref) noexcept;
 
 	void Print(std::ostream& cout) const override;
+	friend std::ostream& operator<<(std::ostream& cout, const Circle& rec);
 };
 
 

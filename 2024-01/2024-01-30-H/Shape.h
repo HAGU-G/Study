@@ -13,3 +13,4 @@ public:
 };
 
 std::ostream& operator<<(std::ostream& cout, const Shape& shape);
+std::ostream& operator<<(std::ostream& cout, const Shape* shape);
