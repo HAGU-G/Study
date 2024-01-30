@@ -15,13 +15,14 @@ int String::Compare(const String& ref) const
 	const char* lhs = strData ? strData : "";
 	const char* rhs = ref.strData ? ref.strData : "";
 
-	return 	strcmp(lhs, rhs);
+	return strcmp(lhs, rhs);
 }
 
-//strData, len 할당, 널체크함
+//strData, len 할당
 void String::Alloc(const char* str, int newLen)
 {
-	if (strData != str)
+	//널체크는 일관성 있게
+	if (strData != str && str)
 	{
 		if (strData)
 		{
@@ -124,8 +125,7 @@ String& String::operator+=(const String& rhs)
 String String::operator+(const String& rhs)
 {
 	String temp(strData);
-	temp += rhs;
-	return temp;
+	return temp += rhs;
 }
 
 
@@ -164,7 +164,7 @@ std::ostream& operator<<(std::ostream& print, const String& rhs)
 
 std::istream& operator>>(std::istream& scan, String& rhs)
 {
-	//char 배열의 최대 크기로 만든 다음에 입력을 하면 더 간단하다.
+	//char 배열을 최대 크기로 만든 다음에 입력을 하면 더 간단하다.
 	char first = scan.rdbuf()->sgetc();
 	unsigned long long bufLen = scan.rdbuf()->in_avail();
 	char* reader = new char[bufLen];

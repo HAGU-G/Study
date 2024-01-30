@@ -32,5 +32,9 @@ int main(void)
 	delete pos2;
 	delete pos1;
 
+
+
+
+
 	return 0;
 }

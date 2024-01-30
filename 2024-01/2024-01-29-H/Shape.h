@@ -16,8 +16,8 @@ public:
 	virtual float Round() const = 0;
 	Point GetPosition() const;
 
-	virtual void Print(std::ostream& cout) const;
+	virtual void Print(std::ostream& cout) const = 0;
 
 };
 
-std::ostream& operator<<(std::ostream& cout, const Shape* shape);
+std::ostream& operator<<(std::ostream& cout, const Shape& shape);

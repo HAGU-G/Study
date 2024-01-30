@@ -21,12 +21,8 @@ Point Shape::GetPosition() const
 	return position;
 }
 
-void Shape::Print(std::ostream& cout) const
+std::ostream& operator<<(std::ostream& cout, const Shape& shape)
 {
-}
-
-std::ostream& operator<<(std::ostream& cout, const Shape* shape)
-{
-	shape->Print(cout);
+	shape.Print(cout);
 	return cout;
 }

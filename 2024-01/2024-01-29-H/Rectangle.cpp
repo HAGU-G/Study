@@ -8,6 +8,8 @@ Rectangle::Rectangle(Point* pos1, Point* pos2)
 		position2.x = pos2->x;
 		position2.y = pos2->y;
 	}
+
+	//두 점으로 사각형을 만들 수 있는지 검사해야함
 }
 
 Rectangle::Rectangle(const Rectangle& ref)
