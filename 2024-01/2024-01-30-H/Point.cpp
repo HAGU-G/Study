@@ -1,6 +1,6 @@
 #include "Point.h"
 
-explicit Point::Point(double x, double y)
+Point::Point(double x, double y)
 	:x(x), y(y)
 {
 }
@@ -41,7 +41,7 @@ Point& Point::operator=(Point&& ref) noexcept
 
 std::ostream& operator<<(std::ostream& cout, const Point& point)
 {
-	cout << "( " << point.x << ", " << point.y << ")";
+	cout << "(" << point.x << ", " << point.y << ")";
 
 	return cout;
 }

@@ -10,7 +10,8 @@ private:
 	Point RB;
 
 public:
-	Rectangle(Point* pos1, Point* pos2);
+	Rectangle(const Point* pos1, const Point* pos2);
+	Rectangle(const Point& pos1, const Point& pos2);
 	Rectangle(const Rectangle& ref);
 	Rectangle(Rectangle&& ref) noexcept;
 	inline virtual ~Rectangle() {}

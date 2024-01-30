@@ -7,7 +7,8 @@ protected:
 	Point center;
 	double radius;
 public:
-	Circle(Point* pos1, double r);
+	Circle(const Point* pos1, double r);
+	Circle(const Point& pos1, double r);
 	Circle(const Circle& ref);
 	Circle(Circle&& ref) noexcept;
 	inline virtual ~Circle() {}

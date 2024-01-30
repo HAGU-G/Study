@@ -1,12 +1,17 @@
 #include "Rectangle.h"
 
-Rectangle::Rectangle(Point* pos1, Point* pos2)
+Rectangle::Rectangle(const Point* pos1, const Point* pos2)
 	:LT(), LB(), RT(), RB()
 {
 	if (pos1 && pos2)
 	{
 		SetPoints(*pos1, *pos2);
 	}
+}
+
+Rectangle::Rectangle(const Point& pos1, const Point& pos2)
+	:Rectangle(&pos1, &pos2)
+{
 }
 
 Rectangle::Rectangle(const Rectangle& ref)

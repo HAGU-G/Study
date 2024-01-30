@@ -46,13 +46,13 @@ void Ring::SetCenter(const Point& pos)
 
 void Ring::SetSmallRadius(double r)
 {
-	if (r < largeRadius)
+	if (r < largeRadius && r > 0.0)
 		smallRadius = r;
 }
 
 void Ring::SetLargeRadius(double R)
 {
-	if (R > smallRadius)
+	if (R > smallRadius) //작은 반지름이 0 이상이기 때문에 음수 검사를 하지 않았다.
 		largeRadius = R;
 }
 

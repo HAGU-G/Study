@@ -2,13 +2,18 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-Circle::Circle(Point* pos1, double r)
+Circle::Circle(const Point* pos1, double r)
 	:center(), radius(0)
 {
 	if (pos1)
 		center = *pos1;
 	if (r > 0.0)
 		radius = r;
+}
+
+Circle::Circle(const Point& pos1, double r)
+	:Circle(&pos1, r)
+{
 }
 
 Circle::Circle(const Circle& ref)
