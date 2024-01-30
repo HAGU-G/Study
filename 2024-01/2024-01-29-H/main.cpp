@@ -5,7 +5,6 @@
 #include "Circle.h"
 #include "Ring.h"
 
-
 int main(void)
 {
 	Point* pos1 = new Point(-10, 10);
