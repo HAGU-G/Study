@@ -727,4 +727,4 @@ crashlytics-build.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/c,c++,csharp,visualstudio,visualstudiocode,unity
 
-!Template/
+!Template/*
