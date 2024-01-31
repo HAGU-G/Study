@@ -55,6 +55,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Template", "Template", "{45
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SFML Template", "Template\SFML Template\SFML Template.vcxproj", "{EFBD0CBF-C735-4122-8CEB-880172D9EDB6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2024-02", "2024-02", "{85C09ED2-7FEA-49E6-AFE9-B3E9A1F50925}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
