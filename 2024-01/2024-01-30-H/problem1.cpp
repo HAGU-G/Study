@@ -35,7 +35,7 @@ int main() {
 	C* d = new C;
 											//예측
 	cout << a->f() << endl;					//10
-	cout << static_cast<C*>(a)->g() << endl;//static_cast<B*>→10 : A에는 g()가 없다.
+	cout << static_cast<B*>(a)->g() << endl;//static_cast<B*>→10 : A에는 g()가 없다.
 	cout << b->f() << endl;					//10
 	cout << static_cast<B*>(b)->g() << endl;//static_cast<B*>→10 or <C*>→20 : A에는 g()가 없다.
 	cout << c->f() << endl;					//20
