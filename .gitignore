@@ -1,6 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/c,c++,csharp,visualstudio,visualstudiocode,unity
 # Edit at https://www.toptal.com/developers/gitignore?templates=c,c++,csharp,visualstudio,visualstudiocode,unity
 
+Template/
+
 ### C ###
 # Prerequisites
 *.d
@@ -726,6 +728,3 @@ crashlytics-build.properties
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/c,c++,csharp,visualstudio,visualstudiocode,unity
-
-Template/
-!Template/
