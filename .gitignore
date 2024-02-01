@@ -728,3 +728,4 @@ crashlytics-build.properties
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/c,c++,csharp,visualstudio,visualstudiocode,unity
+/SFML Template
