@@ -21,6 +21,7 @@ int main()
 	sf::Sprite spCloud;
 	spCloud.setTexture(texCloud);
 	spCloud.setPosition(0, 0);
+	spCloud.setOrigin(texCloud.getSize().x/2, texCloud.getSize().y / 2);
 
 	sf::Texture texBee;
 	texBee.loadFromFile("graphics/bee.png");
@@ -58,6 +59,8 @@ int main()
 	sf::Transform rotation;
 	ddd = rotation.rotate(360.f * rand() / RAND_MAX) * ddd;
 
+
+
 	sf::Clock second1;
 
 	while (window.isOpen())
@@ -67,8 +70,10 @@ int main()
 		{
 			second1.restart();
 			beeDirection = rotation.rotate(360.f * rand() / RAND_MAX) * beeDirection;
+			
 		}
 
+		
 		//
 		sf::Time dt = clock.restart();
 		float deltaTime = dt.asSeconds();
@@ -130,7 +135,7 @@ int main()
 
 		cloud1Postion += cloudDirection1 * cloudSpeed1 * deltaTime;
 		cloud2Postion += cloudDirection2 * cloudSpeed2 * deltaTime;
-		cloud3Postion += ddd * cloudSpeed3 * deltaTime;
+		cloud3Postion += cloudDirection3 * cloudSpeed3 * deltaTime;
 		
 		if (cloud1Postion.x > 1920)
 			cloud1Postion.x -= 1920;
