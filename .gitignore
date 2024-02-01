@@ -729,3 +729,4 @@ crashlytics-build.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/c,c++,csharp,visualstudio,visualstudiocode,unity
 /SFML Template
+/SFML-2.6.1
