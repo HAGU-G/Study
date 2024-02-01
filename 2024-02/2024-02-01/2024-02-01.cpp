@@ -113,7 +113,7 @@ int main()
 			cloudSpeed3 = 1000.f * rand() / RAND_MAX;
 			ddd = rotation.rotate(360.f * rand() / RAND_MAX) * ddd;
 		}
-
+	
 		//Update
 		spBee.setScale(beeDirection.x < 0 ? 1 : -1, 1);
 		sf::Vector2f beePos = spBee.getPosition();
