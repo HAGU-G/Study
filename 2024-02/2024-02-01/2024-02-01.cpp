@@ -302,15 +302,14 @@ int main()
 				textMessage.setString("Press ENTER to start");
 				Utils::SetOrigin(textMessage, Origins::MC, textMessage.getLocalBounds());
 				textMessage.setPosition(960, 540);
-				window.draw(textMessage);
 			}
 			else
 			{
 				textMessage.setString("GameOver");
 				Utils::SetOrigin(textMessage, Origins::MC, textMessage.getLocalBounds());
 				textMessage.setPosition(960, 540);
-				window.draw(textMessage);
 			}
+				window.draw(textMessage);
 		}
 
 
