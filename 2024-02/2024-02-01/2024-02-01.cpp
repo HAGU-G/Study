@@ -147,6 +147,7 @@ int main()
 					if (isGameOver)
 					{
 						timeBar.setSize(timeBarSize);
+						score = 0;
 						isGameOver = false;
 					}
 				}
