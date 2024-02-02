@@ -40,7 +40,6 @@ int main()
 
 
 	srand(time(NULL));
-	sf::Clock clock;
 	float beeSpeed = 100.f;
 	sf::Vector2f beeDirection(1.f, 0.f);
 	
@@ -61,11 +60,12 @@ int main()
 
 
 
+	sf::Clock clock;
 	sf::Clock second1;
 
 	while (window.isOpen())
 	{
-		//1초마다 시간 초기화(남은 시간넘겨받기)
+		//1초마다 시간 초기화
 		if (sf::Time(second1.getElapsedTime()).asSeconds() >= 1)
 		{
 			second1.restart();
@@ -120,6 +120,7 @@ int main()
 		}
 	
 		//Update
+
 		spBee.setScale(beeDirection.x < 0 ? 1 : -1, 1);
 		sf::Vector2f beePos = spBee.getPosition();
 		beePos += beeDirection * beeSpeed * deltaTime;
