@@ -9,8 +9,9 @@
 
 int main()
 {
+	srand(time(NULL));
 	sf::VideoMode vm(1920, 1080);
-	sf::RenderWindow window(vm, "SFML works!");
+	sf::RenderWindow window(vm, "SFML works!",sf::Style::Fullscreen);
 
 	sf::Texture texBackground;
 	texBackground.loadFromFile("graphics/background.png");
@@ -23,13 +24,13 @@ int main()
 	sf::Sprite spCloud;
 	spCloud.setTexture(texCloud);
 	spCloud.setPosition(0, 0);
-	spCloud.setOrigin(0, 0);
+	spCloud.setOrigin(spCloud.getLocalBounds().width/2, 0);
 
 	sf::Texture texBee;
 	texBee.loadFromFile("graphics/bee.png");
 	sf::Sprite spBee;
 	spBee.setTexture(texBee);
-	spBee.setPosition(960, 540);
+	spBee.setPosition(1920 * rand() / RAND_MAX, 500 + 200 * rand() / RAND_MAX);
 	Utils::SetOrigin(spBee, Origins::MC);
 
 	sf::Texture texTree;
@@ -41,20 +42,22 @@ int main()
 
 
 
-	srand(time(NULL));
-	float beeSpeed = 100.f;
-	sf::Vector2f beeDirection(-1.f, 0.f);
-	spBee.setScale(-1, 1);
+	float wind = 1 - (rand() % 2 * 2);
+	float beeSpeed = 100.f + 30.f * rand() / RAND_MAX;
+	sf::Vector2f beeDirection(-1, 0.f);
+	spBee.setScale(1, 1);
 
 	sf::Vector2f cloud1Postion(1920 / 2, 100);
-	sf::Vector2f cloud2Postion(1920 / 2, 300);
-	sf::Vector2f cloud3Postion(1920 / 2, 500);
+	sf::Vector2f cloud2Postion(1920 / 2, 200);
+	sf::Vector2f cloud3Postion(1920 / 2, 300);
 	float cloudSpeed1 = 1000.f * rand() / RAND_MAX;
 	float cloudSpeed2 = 1000.f * rand() / RAND_MAX;
 	float cloudSpeed3 = 1000.f * rand() / RAND_MAX;
-	sf::Vector2f cloudDirection1(1, 0);
-	sf::Vector2f cloudDirection2(1, 0);
-	sf::Vector2f cloudDirection3(1, 0);
+
+	sf::Vector2f cloudDirection1(wind, 0);
+	sf::Vector2f cloudDirection2(wind, 0);
+	sf::Vector2f cloudDirection3(wind, 0);
+	spCloud.setScale(-wind, 1);
 
 
 	sf::Vector2f ddd(1, 0);
@@ -69,6 +72,7 @@ int main()
 	textMessage.setFillColor(sf::Color::White);
 	Utils::SetOrigin(textMessage, Origins::MC, textMessage.getLocalBounds());
 	textMessage.setPosition(960, 540);
+	textMessage.setOutlineThickness(5);
 
 
 
@@ -78,6 +82,7 @@ int main()
 	scoreMessage.setCharacterSize(100);
 	scoreMessage.setFillColor(sf::Color::White);
 	scoreMessage.setPosition(0, 0);
+	scoreMessage.setOutlineThickness(5);
 
 
 
@@ -102,6 +107,10 @@ int main()
 	bool spaceDown = false;
 
 	bool isGameOver = false;
+	int beeAerobatics = 1;
+	int beeAccel = 0;
+	beeDirection = sf::Transform().rotate(180.f*wind) * beeDirection;
+	spBee.setRotation(180.f * wind);
 	while (window.isOpen())
 	{
 		//시간 보정 최상위에 두기
@@ -120,15 +129,71 @@ int main()
 			timeScale = isStop ? 0.f : 1.f;
 		}
 
-		if (sf::Time(second1.getElapsedTime()).asSeconds() >= 1.f * rand() / RAND_MAX + 1.f && timeScale > 0)
+		if (sf::Time(second1.getElapsedTime()).asSeconds() >= 0.5f * rand() / RAND_MAX + 1.5f && timeScale > 0)
 		{
 			second1.restart();
-			randR = deltaTime * 200.f * rand() / RAND_MAX - (deltaTime * 100.f);
+			randR = deltaTime * 360.f * rand() / RAND_MAX - (deltaTime * 180.f);
+			beeAccel = 50.f * rand() / RAND_MAX - 40.f;
 		}
-		beeDirection = sf::Transform().rotate(randR * timeScale) * beeDirection;
-		spBee.setRotation(spBee.getRotation() + randR * timeScale);
+
+		//벌이 비행 구역을 나갈 때 복귀방향을 정한다.
+		if (spBee.getPosition().y < 400 && spBee.getPosition().y>390 && beeDirection.y < 0)
+		{
+			if (beeDirection.x < 0)
+				beeAerobatics = 1;
+			else
+				beeAerobatics = -1;
+		}
+		if (spBee.getPosition().y < 860 && spBee.getPosition().y > 850 && beeDirection.y > 0)
+		{
+			if (beeDirection.x < 0)
+				beeAerobatics = -1;
+			else
+				beeAerobatics = 1;
+		}
 
 
+		if (spBee.getPosition().y < 400)
+		{
+			if (beeSpeed < 1000.f)
+				beeSpeed += 100 * deltaTime;
+			if ((spBee.getRotation() < 350 && beeAerobatics == 1) || ((spBee.getRotation() > 190 || spBee.getRotation() <= 180) && beeAerobatics == -1))
+			{
+
+				beeDirection = sf::Transform().rotate(180 * deltaTime * timeScale * beeAerobatics) * beeDirection;
+				spBee.setRotation(spBee.getRotation() + 180 * deltaTime * timeScale * beeAerobatics);
+				randR = 0;
+			}
+		}
+		else if (spBee.getPosition().y > 850)
+		{
+			
+			if ((spBee.getRotation() > 10 && beeAerobatics == -1) || ((spBee.getRotation() < 170 || spBee.getRotation() >= 180) && beeAerobatics == 1))
+			{
+				if (beeSpeed < 1000.f)
+					beeSpeed += 100 * deltaTime;
+				if (spBee.getRotation() < 45 || spBee.getRotation() > 135)
+				{
+
+					beeDirection = sf::Transform().rotate(180 * deltaTime * timeScale * beeAerobatics) * beeDirection;
+					spBee.setRotation(spBee.getRotation() + 180 * deltaTime * timeScale * beeAerobatics);
+					randR = 0;
+				}
+			}
+		}
+		else
+		{
+			if (beeSpeed > 200.f)
+				beeSpeed -= 500 * deltaTime;
+			else if (beeSpeed >= 50.f && beeSpeed <=200.f)
+				beeSpeed += beeAccel * deltaTime;
+			else
+				beeSpeed += 50.f *deltaTime;
+
+			beeAerobatics = 0;
+			beeDirection = sf::Transform().rotate(randR * timeScale) * beeDirection;
+			spBee.setRotation(spBee.getRotation() + randR * timeScale);
+		}
 		//
 		
 		sf::Event event;
@@ -149,6 +214,11 @@ int main()
 						timeBar.setSize(timeBarSize);
 						score = 0;
 						isGameOver = false;
+						int wind2 = 1 - (rand() % 2 * 2);
+						cloudDirection1.x = wind2;
+						cloudDirection2.x = wind2;
+						cloudDirection3.x = wind2;
+						spCloud.setScale(-wind2, 1);
 					}
 				}
 				if (event.key.code == sf::Keyboard::Space && !spaceDown)
@@ -182,14 +252,6 @@ int main()
 		{
 			window.close();
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			beeDirection = sf::Vector2f(-1.f, 0.f);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			beeDirection = sf::Vector2f(1.f, 0.f);
-		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
 			beeSpeed += 1.f;
@@ -216,23 +278,13 @@ int main()
 			timeScale = 3.f;
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad0))
-		{
-			cloudDirection1 = sf::Vector2f(rand() % 3 - 1, 0);
-			cloudDirection2 = sf::Vector2f(rand() % 3 - 1, 0);
-			cloudDirection3 = sf::Vector2f(rand() % 3 - 1, 0);
-			cloudSpeed1 = 1000.f * rand() / RAND_MAX;
-			cloudSpeed2 = 1000.f * rand() / RAND_MAX;
-			cloudSpeed3 = 1000.f * rand() / RAND_MAX;
-		}
-
 		//Update
 
-		if (beeDirection.x < 0)
+		if (beeDirection.x < 0 && beeAerobatics == 0)
 		{
 			spBee.setScale(1, 1);
 		}
-		else if (beeDirection.x > 0)
+		else if (beeDirection.x > 0 && beeAerobatics == 0)
 		{
 			spBee.setScale(1, -1);
 		}
@@ -255,23 +307,42 @@ int main()
 		cloud2Postion += cloudDirection2 * cloudSpeed2 * deltaTime;
 		cloud3Postion += cloudDirection3 * cloudSpeed3 * deltaTime;
 
-		if (cloud1Postion.x > 1920)
+		if (cloud1Postion.x > 1920 + spCloud.getLocalBounds().width/2)
 		{
 			cloud1Postion.x -= 1920 + spCloud.getLocalBounds().width;
-			cloud1Postion.y = spCloud.getLocalBounds().height * 2 * rand() / RAND_MAX;
-			cloudSpeed1 = 1000.f * rand() / RAND_MAX;
+			cloud1Postion.y = spCloud.getLocalBounds().height * rand() / RAND_MAX;
+			cloudSpeed1 = 100.f+500.f * rand() / RAND_MAX;
 		}
-		if (cloud2Postion.x > 1920)
+		if (cloud2Postion.x > 1920 + spCloud.getLocalBounds().width / 2)
 		{
 			cloud2Postion.x -= 1920 + spCloud.getLocalBounds().width;
-			cloud2Postion.y = spCloud.getLocalBounds().height * 2 * rand() / RAND_MAX;
-			cloudSpeed2 = 1000.f * rand() / RAND_MAX;
+			cloud2Postion.y = spCloud.getLocalBounds().height * rand() / RAND_MAX;
+			cloudSpeed2 = 100.f + 500.f * rand() / RAND_MAX;
 		}
-		if (cloud3Postion.x > 1920)
+		if (cloud3Postion.x > 1920 + spCloud.getLocalBounds().width / 2)
 		{
 			cloud3Postion.x -= 1920 + spCloud.getLocalBounds().width;
-			cloud3Postion.y = spCloud.getLocalBounds().height * 2 * rand() / RAND_MAX;
-			cloudSpeed3 = 1000.f * rand() / RAND_MAX;
+			cloud3Postion.y = spCloud.getLocalBounds().height * rand() / RAND_MAX;
+			cloudSpeed3 = 100.f + 500.f * rand() / RAND_MAX;
+		}
+
+		if (cloud1Postion.x < 0 - spCloud.getLocalBounds().width / 2)
+		{
+			cloud1Postion.x += 1920 + spCloud.getLocalBounds().width;
+			cloud1Postion.y = spCloud.getLocalBounds().height * rand() / RAND_MAX;
+			cloudSpeed1 = 100.f + 500.f * rand() / RAND_MAX;
+		}
+		if (cloud2Postion.x < 0 - spCloud.getLocalBounds().width / 2)
+		{
+			cloud2Postion.x += 1920 + spCloud.getLocalBounds().width;
+			cloud2Postion.y = spCloud.getLocalBounds().height * rand() / RAND_MAX;
+			cloudSpeed2 = 100.f + 500.f * rand() / RAND_MAX;
+		}
+		if (cloud3Postion.x < 0 - spCloud.getLocalBounds().width / 2)
+		{
+			cloud3Postion.x += 1920 + spCloud.getLocalBounds().width;
+			cloud3Postion.y = spCloud.getLocalBounds().height * rand() / RAND_MAX;
+			cloudSpeed3 = 100.f + 500.f * rand() / RAND_MAX;
 		}
 
 		//draw
@@ -314,7 +385,7 @@ int main()
 
 
 		std::stringstream ss;
-		ss << "Score : " << score;
+		ss << "Score : " << score << " "<<beeSpeed;
 		scoreMessage.setString(ss.str());
 		window.draw(scoreMessage);
 
