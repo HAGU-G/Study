@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="2024-02-01.cpp">
+    <ClCompile Include="Timber.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="TEST.cpp">
@@ -24,12 +24,18 @@
     <ClCompile Include="Framework\Utils.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Framework\InputMgr.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Utils.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Defines.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\InputMgr.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

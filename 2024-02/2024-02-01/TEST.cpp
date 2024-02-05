@@ -1,3 +1,4 @@
+//키를 계속 눌러도 한 번만 입력받도록 해보고 있다.
 
 #include <SFML/Graphics.hpp>
 #include <iostream>

@@ -1,4 +1,5 @@
-#include "Utils.h";
+#include "Utils.h"
+
 
 void Utils::SetOrigin(sf::Transformable& obj, Origins originPreset, const sf::FloatRect& rect)
 {

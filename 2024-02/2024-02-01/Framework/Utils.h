@@ -1,13 +1,6 @@
 #pragma once
 #include<SFML/Graphics.hpp>
-enum class Origins
-{
-	// T M B
-	// L C R
-	TL, TC, TR,
-	ML, MC, MR,
-	BL, BC, BR
-};
+#include "Defines.h"
 
 class Utils
 {
