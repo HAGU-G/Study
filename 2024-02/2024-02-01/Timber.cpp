@@ -23,6 +23,27 @@ int main()
 	sf::VideoMode vm(windowWidth, windowHeight);
 	sf::RenderWindow window(vm, "Timber", sf::Style::Fullscreen);
 
+	brancheSides[NUM_OF_BRANCHES - 1] = Sides::NONE;
+	for (int i = NUM_OF_BRANCHES - 2; i >=0; i--)
+	{
+		int side = rand() % 3;
+		switch (side)
+		{
+		case 0:
+			brancheSides[i] = Sides::LEFT;
+			break;
+		case 1:
+			brancheSides[i] = Sides::RIGHT;
+			break;
+		default:
+			brancheSides[i] = Sides::NONE;
+			break;
+		}
+		if (brancheSides[i + 1] != Sides::NONE)
+			brancheSides[i] = Sides::NONE;
+
+	}
+
 	//텍스쳐 & 폰트 
 	sf::Texture texBackground;
 	texBackground.loadFromFile("graphics/background.png");
@@ -39,6 +60,12 @@ int main()
 	sf::Texture texBranch;
 	texBranch.loadFromFile("graphics/branch.png");
 
+	sf::Texture texPlayer;
+	texPlayer.loadFromFile("graphics/player.png");
+
+	sf::Texture texAxe;
+	texAxe.loadFromFile("graphics/axe.png");
+
 	sf::Font font;
 	font.loadFromFile("fonts/KOMIKAP_.ttf");
 
@@ -54,13 +81,13 @@ int main()
 
 	sf::Sprite spBee;
 	spBee.setTexture(texBee);
-	spBee.setPosition(1920.f * rand() / RAND_MAX, 500.f + 200.f * rand() / RAND_MAX);
 	Utils::SetOrigin(spBee, Origins::MC);
+	spBee.setPosition(1920.f * rand() / RAND_MAX, 500.f + 200.f * rand() / RAND_MAX);
 
 	sf::Sprite spTree;
 	spTree.setTexture(texTree);
-	spTree.setPosition(vm.width / 2.f, 0);
 	spTree.setOrigin(texTree.getSize().x / 2.f, 0);
+	spTree.setPosition(vm.width / 2.f, 0);
 	spBee.setScale(1, 1);
 
 	for (int i = 0; i < NUM_OF_BRANCHES; ++i)
@@ -69,6 +96,24 @@ int main()
 		branches[i].setPosition(500, 500);
 		Utils::SetOrigin(branches[i], Origins::ML);
 	}
+
+	sf::Sprite spPlayer;
+	spPlayer.setTexture(texPlayer);
+	spPlayer.setOrigin(- spTree.getLocalBounds().width * 0.53f, spPlayer.getTexture()->getSize().y);
+	spPlayer.setPosition(windowWidth *0.5f, spTree.getLocalBounds().height);
+	spPlayer.setScale(1, 1);
+
+	sf::Sprite spAxe;
+	spAxe.setTexture(texAxe);
+	spAxe.setOrigin(spAxe.getTexture()->getSize().x *0.5f, 0);
+	spAxe.setPosition(spPlayer.getGlobalBounds().left + spPlayer.getLocalBounds().width*0.58f, spPlayer.getGlobalBounds().top+spPlayer.getLocalBounds().height*0.73f);
+	spAxe.setScale(1, -1);
+
+
+
+
+
+
 
 	//스프라이트 움직임
 	float wind = 1.f - (rand() % 2 * 2);
@@ -327,6 +372,18 @@ int main()
 		{
 			timeScale = 3.f;
 		}
+		if (InputMgr::GetKey(sf::Keyboard::Right)&&!isStop)
+		{
+			spPlayer.setScale(1, 1);
+			spAxe.setPosition(spPlayer.getGlobalBounds().left + spPlayer.getLocalBounds().width * 0.58f, spPlayer.getGlobalBounds().top + spPlayer.getLocalBounds().height * 0.73f);
+			spAxe.setScale(1, -1);
+		}
+		if (InputMgr::GetKey(sf::Keyboard::Left) && !isStop)
+		{
+			spPlayer.setScale(-1, 1);
+			spAxe.setPosition(spPlayer.getGlobalBounds().left + spPlayer.getLocalBounds().width * 0.42f, spPlayer.getGlobalBounds().top + spPlayer.getLocalBounds().height * 0.73f);
+			spAxe.setScale(-1, -1);
+		}
 
 		//Update
 
@@ -445,8 +502,13 @@ int main()
 
 		}
 
-		//L3
+		window.draw(spPlayer);
+		window.draw(spAxe);
+
 		window.draw(spBee);
+
+		//L3
+
 
 		if (isStop)
 		{
@@ -458,7 +520,7 @@ int main()
 			}
 			else
 			{
-				textMessage.setString("\t     GameOver\n\nPress ENTER to start");
+				textMessage.setString("\t    GameOver\n\nPress ENTER to start");
 				Utils::SetOrigin(textMessage, Origins::MC, textMessage.getLocalBounds());
 				textMessage.setPosition(960, 540);
 			}
@@ -489,7 +551,6 @@ void UpdateBranches()
 		brancheSides[i] = brancheSides[i - 1];
 	}
 
-	float value = (float)rand() / RAND_MAX;
 	int side = rand() % 5;
 	switch (side)
 	{
@@ -503,4 +564,6 @@ void UpdateBranches()
 		brancheSides[0] = Sides::NONE;
 		break;
 	}
+	if (brancheSides[1] != Sides::NONE)
+		brancheSides[0] = Sides::NONE;
 }
