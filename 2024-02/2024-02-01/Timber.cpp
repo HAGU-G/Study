@@ -26,7 +26,7 @@ int main()
 	brancheSides[NUM_OF_BRANCHES - 1] = Sides::NONE;
 	for (int i = NUM_OF_BRANCHES - 2; i >=0; i--)
 	{
-		int side = rand() % 3;
+		int side = rand() % 4;
 		switch (side)
 		{
 		case 0:
@@ -39,9 +39,22 @@ int main()
 			brancheSides[i] = Sides::NONE;
 			break;
 		}
-		if (brancheSides[i + 1] != Sides::NONE)
-			brancheSides[i] = Sides::NONE;
-
+		while (brancheSides[i + 1] != Sides::NONE && brancheSides[i] != Sides::NONE && brancheSides[i + 1] != brancheSides[i])
+		{
+			side = rand() % 3;
+			switch (side)
+			{
+			case 0:
+				brancheSides[i] = Sides::LEFT;
+				break;
+			case 1:
+				brancheSides[i] = Sides::RIGHT;
+				break;
+			default:
+				brancheSides[i] = Sides::NONE;
+				break;
+			}
+		}
 	}
 
 	//텍스쳐 & 폰트 
@@ -551,7 +564,7 @@ void UpdateBranches()
 		brancheSides[i] = brancheSides[i - 1];
 	}
 
-	int side = rand() % 5;
+	int side = rand() % 4;
 	switch (side)
 	{
 	case 0:
@@ -564,6 +577,20 @@ void UpdateBranches()
 		brancheSides[0] = Sides::NONE;
 		break;
 	}
-	if (brancheSides[1] != Sides::NONE)
-		brancheSides[0] = Sides::NONE;
+	while (brancheSides[1] != Sides::NONE && brancheSides[0] != Sides::NONE && brancheSides[1] != brancheSides[0])
+	{
+		side = rand() % 3;
+		switch (side)
+		{
+		case 0:
+			brancheSides[0] = Sides::LEFT;
+			break;
+		case 1:
+			brancheSides[0] = Sides::RIGHT;
+			break;
+		default:
+			brancheSides[0] = Sides::NONE;
+			break;
+		}
+	}
 }
