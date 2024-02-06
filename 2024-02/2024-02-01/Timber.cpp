@@ -291,6 +291,7 @@ int main()
 				timeBar.setSize(timeBarSize);
 				score = 0;
 				ResetBranches();
+				timeBarSpeed = -timeBarSize.x / 3.f;
 				isGameOver = false;
 				float wind2 = 1.f - (rand() % 2 * 2);
 				cloudDirection1.x = wind2;
@@ -353,10 +354,10 @@ int main()
 				if (timeBar.getSize().x > timeBarSize.x)
 					timeBar.setSize(timeBarSize);
 				std::stringstream ss;
-				ss << "Score : " << timeBarDuration; //스코어 넣어야함
+				ss << "Score : " << score;
 				scoreMessage.setString(ss.str());
 
-				timeBarDuration = 1.5f*(exp(-score/100.f+6)/(exp(-score/100.f+6)+1)+1);
+				timeBarDuration = 2.5f * exp(-score / 300.f + 6) / (exp(-score / 300.f + 6) + 1) + 0.3 * exp(-score / 500.f + 10) / (exp(-score / 500.f + 10) + 1) + 0.2;
 				timeBarSpeed = -timeBarSize.x / timeBarDuration;
 			}
 			else
