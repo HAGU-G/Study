@@ -66,4 +66,13 @@ public:
 	ResourceMgr(ResourceMgr&&) = delete;
 	ResourceMgr& operator=(const ResourceMgr&) = delete;
 	ResourceMgr& operator=(ResourceMgr&&) = delete;
+
+
 };
+
+
+inline const sf::Texture& operator>>(const sf::Texture& texture, sf::Sprite& sprite)
+{
+	sprite.setTexture(texture);
+	return texture;
+}

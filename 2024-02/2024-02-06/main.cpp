@@ -11,7 +11,6 @@ int main()
 
     sf::Sprite player;
     player.setTexture(*texMgr.Get("graphics/player.png"));
-    
 
     while (window.isOpen())
     {
