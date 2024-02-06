@@ -357,7 +357,7 @@ int main()
 				ss << "Score : " << score;
 				scoreMessage.setString(ss.str());
 
-				timeBarDuration = 2.5f * exp(-score / 300.f + 6) / (exp(-score / 300.f + 6) + 1) + 0.3 * exp(-score / 500.f + 10) / (exp(-score / 500.f + 10) + 1) + 0.2;
+				timeBarDuration = 2.0f * exp(-score / 200.f + 10) / (exp(-score / 200.f + 10) + 1) + 7.f * exp(-score / 100.f + 7) / (exp(-score / 100.f + 7) + 1) + 0.3f;
 				timeBarSpeed = -timeBarSize.x / timeBarDuration;
 			}
 			else

@@ -6,6 +6,13 @@ int main()
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
 
+    ResourceMgr<sf::Texture> resMgr;
+    resMgr.Load("graphics/player.png");
+
+    sf::Sprite player;
+    player.setTexture(*resMgr.Get("graphics/player.png"));
+    
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -17,8 +24,11 @@ int main()
 
         window.clear();
         window.draw(shape);
+        window.draw(player);
         window.display();
     }
+
+    resMgr.UnLoad("graphics/player.png");
 
     return 0;
 }

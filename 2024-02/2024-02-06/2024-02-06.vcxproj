@@ -107,7 +107,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\..\..\SFML-2.6.1\include;.\Framework;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\SFML-2.6.1\include;.;.\Framework</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="Framework\Defines.h" />
     <ClInclude Include="Framework\InputMgr.h" />
+    <ClInclude Include="Framework\ResourceMgr.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
