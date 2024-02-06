@@ -10,10 +10,12 @@
 #include <sstream>
 
 void UpdateBranches();
+void ResetBranches();
 
 const int NUM_OF_BRANCHES = 6;
 sf::Sprite branches[NUM_OF_BRANCHES];
 Sides brancheSides[NUM_OF_BRANCHES];
+Sides playerSide = Sides::RIGHT;
 
 int main()
 {
@@ -22,40 +24,9 @@ int main()
 	float windowHeight = 1080;
 	sf::VideoMode vm(windowWidth, windowHeight);
 	sf::RenderWindow window(vm, "Timber", sf::Style::Fullscreen);
-
-	brancheSides[NUM_OF_BRANCHES - 1] = Sides::NONE;
-	for (int i = NUM_OF_BRANCHES - 2; i >=0; i--)
-	{
-		int side = rand() % 4;
-		switch (side)
-		{
-		case 0:
-			brancheSides[i] = Sides::LEFT;
-			break;
-		case 1:
-			brancheSides[i] = Sides::RIGHT;
-			break;
-		default:
-			brancheSides[i] = Sides::NONE;
-			break;
-		}
-		while (brancheSides[i + 1] != Sides::NONE && brancheSides[i] != Sides::NONE && brancheSides[i + 1] != brancheSides[i])
-		{
-			side = rand() % 3;
-			switch (side)
-			{
-			case 0:
-				brancheSides[i] = Sides::LEFT;
-				break;
-			case 1:
-				brancheSides[i] = Sides::RIGHT;
-				break;
-			default:
-				brancheSides[i] = Sides::NONE;
-				break;
-			}
-		}
-	}
+	sf::View view1(sf::FloatRect(0.f, 0.f, windowWidth, windowHeight));
+	sf::View view2(sf::FloatRect(0.f, 0.f, windowWidth * 0.1f, windowHeight * 0.1f));
+	view2.setViewport(sf::FloatRect(0.9f, 0.0f, 0.1f, 0.1f));
 
 	//텍스쳐 & 폰트 
 	sf::Texture texBackground;
@@ -109,26 +80,23 @@ int main()
 		branches[i].setPosition(500, 500);
 		Utils::SetOrigin(branches[i], Origins::ML);
 	}
+	ResetBranches();
 
 	sf::Sprite spPlayer;
 	spPlayer.setTexture(texPlayer);
-	spPlayer.setOrigin(- spTree.getLocalBounds().width * 0.53f, spPlayer.getTexture()->getSize().y);
-	spPlayer.setPosition(windowWidth *0.5f, spTree.getLocalBounds().height);
+	spPlayer.setOrigin(-spTree.getLocalBounds().width * 0.53f, spPlayer.getTexture()->getSize().y);
+	spPlayer.setPosition(windowWidth * 0.5f, spTree.getLocalBounds().height);
 	spPlayer.setScale(1, 1);
 
 	sf::Sprite spAxe;
 	spAxe.setTexture(texAxe);
-	spAxe.setOrigin(spAxe.getTexture()->getSize().x *0.5f, 0);
-	spAxe.setPosition(spPlayer.getGlobalBounds().left + spPlayer.getLocalBounds().width*0.58f, spPlayer.getGlobalBounds().top+spPlayer.getLocalBounds().height*0.73f);
+	spAxe.setOrigin(spAxe.getTexture()->getSize().x * 0.5f, 0);
+	spAxe.setPosition(spPlayer.getGlobalBounds().left + spPlayer.getLocalBounds().width * 0.58f, spPlayer.getGlobalBounds().top + spPlayer.getLocalBounds().height * 0.73f);
 	spAxe.setScale(1, -1);
 
 
 
-
-
-
-
-	//스프라이트 움직임
+	//스프라이트 움직임 
 	float wind = 1.f - (rand() % 2 * 2);
 	float beeSpeed = 100.f + 30.f * rand() / RAND_MAX;
 
@@ -165,9 +133,9 @@ int main()
 	scoreMessage.setFont(font);
 	scoreMessage.setCharacterSize(100);
 	scoreMessage.setFillColor(sf::Color::White);
-	scoreMessage.setPosition(0, 0);
+	scoreMessage.setPosition(10, 0);
 	scoreMessage.setOutlineThickness(5);
-
+	scoreMessage.setString("Score : 0");
 
 
 	sf::Clock clock;
@@ -182,11 +150,10 @@ int main()
 	sf::RectangleShape timeBar(timeBarSize);
 	timeBar.setFillColor(sf::Color::Red);
 	Utils::SetOrigin(timeBar, Origins::MC);
-	timeBar.setPosition(1920 / 2, 1080 - 80);
+	timeBar.setPosition(1920.f / 2, 1080 - 80);
 
 	float timeBarDuration = 3.f;
 	float timeBarSpeed = -timeBarSize.x / timeBarDuration;
-	float timeBarTimer = 0.f;
 
 	bool spaceDown = false;
 
@@ -197,24 +164,32 @@ int main()
 	spBee.setRotation(180.f * wind);
 
 
+
+	//sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+	//sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+	//sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+	//sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
 	while (window.isOpen())
 	{
 		//시간 보정 최상위에 두기
 		sf::Time dt = clock.restart();
 		deltaTime = dt.asSeconds() * timeScale;
+		int fps = 1 / deltaTime;
+		view2.setCenter(spBee.getPosition());
 
 		InputMgr::Clear();
 
-		timeBarTimer += deltaTime;
 		if (timeBar.getSize().x > 0.f)
 			timeBar.setSize(sf::Vector2f(timeBar.getSize().x + timeBarSpeed * deltaTime, timeBarSize.y));
+
 		if (timeBar.getSize().x <= 0.f)
 			timeBar.setSize(sf::Vector2f(0.f, timeBarSize.y));
+
 		if (timeBar.getSize().x == 0.f)
 		{
-			isStop = true;
 			isGameOver = true;
-			timeScale = isStop ? 0.f : 1.f;
+			isStop = true;
+			timeScale = 0.f;
 		}
 
 		if (sf::Time(second1.getElapsedTime()).asSeconds() >= 0.5f * rand() / RAND_MAX + 1.5f && timeScale > 0)
@@ -294,58 +269,17 @@ int main()
 			case sf::Event::Closed:
 				window.close();
 				break;
-			/*case sf::Event::KeyPressed:
-				if (event.key.code == sf::Keyboard::Enter)
-				{
-					isStop = !isStop;
-					timeScale = isStop ? 0.f : 1.f;
-					if (isGameOver)
-					{
-						timeBar.setSize(timeBarSize);
-						score = 0;
-						isGameOver = false;
-						float wind2 = 1.f - (rand() % 2 * 2);
-						cloudDirection1.x = wind2;
-						cloudDirection2.x = wind2;
-						cloudDirection3.x = wind2;
-						spCloud.setScale(-wind2, 1);
-					}
-				}
-				if (event.key.code == sf::Keyboard::Space && !spaceDown)
-				{
-					spaceDown = true;
-					if (timeScale > 0.f)
-					{
-						UpdataBrandes();
-						score += 1;
-						if (timeBar.getSize().x < timeBarSize.x)
-							timeBar.setSize(sf::Vector2f(timeBar.getSize().x - timeBarSpeed, timeBarSize.y));
-						if (timeBar.getSize().x > timeBarSize.x)
-							timeBar.setSize(timeBarSize);
-					}
-				}
-				break;
-			case sf::Event::KeyReleased:
-				if (event.key.code == sf::Keyboard::Space)
-				{
-					spaceDown = false;
-				}
-				break;*/
 			}
 		}
 
-
+		bool isMove = false;
 		//Handle User Input******************************************************
 		if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 		{
 			if (timeScale > 0.f)
 			{
 				UpdateBranches();
-				score += 1;
-				if (timeBar.getSize().x < timeBarSize.x)
-					timeBar.setSize(sf::Vector2f(timeBar.getSize().x - timeBarSpeed, timeBarSize.y));
-				if (timeBar.getSize().x > timeBarSize.x)
-					timeBar.setSize(timeBarSize);
+				isMove = true;
 			}
 		}
 		if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
@@ -356,6 +290,7 @@ int main()
 			{
 				timeBar.setSize(timeBarSize);
 				score = 0;
+				ResetBranches();
 				isGameOver = false;
 				float wind2 = 1.f - (rand() % 2 * 2);
 				cloudDirection1.x = wind2;
@@ -385,20 +320,55 @@ int main()
 		{
 			timeScale = 3.f;
 		}
-		if (InputMgr::GetKey(sf::Keyboard::Right)&&!isStop)
+		if (InputMgr::GetKeyDown(sf::Keyboard::Right) && !isStop)
 		{
+			UpdateBranches();
 			spPlayer.setScale(1, 1);
+			playerSide = Sides::RIGHT;
 			spAxe.setPosition(spPlayer.getGlobalBounds().left + spPlayer.getLocalBounds().width * 0.58f, spPlayer.getGlobalBounds().top + spPlayer.getLocalBounds().height * 0.73f);
 			spAxe.setScale(1, -1);
+			isMove = true;
+
 		}
-		if (InputMgr::GetKey(sf::Keyboard::Left) && !isStop)
+		if (InputMgr::GetKeyDown(sf::Keyboard::Left) && !isStop)
 		{
+			UpdateBranches();
 			spPlayer.setScale(-1, 1);
+			playerSide = Sides::LEFT;
 			spAxe.setPosition(spPlayer.getGlobalBounds().left + spPlayer.getLocalBounds().width * 0.42f, spPlayer.getGlobalBounds().top + spPlayer.getLocalBounds().height * 0.73f);
 			spAxe.setScale(-1, -1);
+			isMove = true;
+
 		}
 
 		//Update
+		if (isMove)
+		{
+			isMove = false;
+			if (playerSide != brancheSides[NUM_OF_BRANCHES - 1])
+			{
+				score += 10;
+				if (timeBar.getSize().x < timeBarSize.x)
+					timeBar.setSize(sf::Vector2f(timeBar.getSize().x - timeBarSpeed, timeBarSize.y));
+				if (timeBar.getSize().x > timeBarSize.x)
+					timeBar.setSize(timeBarSize);
+				std::stringstream ss;
+				ss << "Score : " << timeBarDuration; //스코어 넣어야함
+				scoreMessage.setString(ss.str());
+
+				timeBarDuration = 1.5f*(exp(-score/100.f+6)/(exp(-score/100.f+6)+1)+1);
+				timeBarSpeed = -timeBarSize.x / timeBarDuration;
+			}
+			else
+			{
+				isGameOver = true;
+				isStop = true;
+				timeScale = 0.f;
+			}
+
+
+		}
+
 
 		if (beeDirection.x < 0 && beeAerobatics == 0)
 		{
@@ -495,60 +465,62 @@ int main()
 
 		//************************ draw *********************************
 		window.clear();
-
-		//background
-		window.draw(spriteBackground);
-
-		//L1
-		spCloud.setPosition(cloud1Postion);
-		window.draw(spCloud);
-		spCloud.setPosition(cloud2Postion);
-		window.draw(spCloud);
-		spCloud.setPosition(cloud3Postion);
-		window.draw(spCloud);
-
-		//L2
-		window.draw(spTree);
-		for (int i = 0; i < NUM_OF_BRANCHES; ++i)
+		sf::View* vv[2] = { &view1, &view2 };
+		for (int i = 0; i < 2; i++)
 		{
-			window.draw(branches[i]);
+			window.setView(*vv[i]);
 
+			//background
+			window.draw(spriteBackground);
+
+			//L1 구름
+			spCloud.setPosition(cloud1Postion);
+			window.draw(spCloud);
+			spCloud.setPosition(cloud2Postion);
+			window.draw(spCloud);
+			spCloud.setPosition(cloud3Postion);
+			window.draw(spCloud);
+
+			//L2 나무, 플레이어, 벌
+			window.draw(spTree);
+			for (int i = 0; i < NUM_OF_BRANCHES; ++i)
+			{
+				window.draw(branches[i]);
+
+			}
+
+			window.draw(spPlayer);
+			window.draw(spAxe);
+			window.draw(spBee);
 		}
-
-		window.draw(spPlayer);
-		window.draw(spAxe);
-
-		window.draw(spBee);
-
-		//L3
-
-
+		//L3 메세지
+		window.setView(view1);
 		if (isStop)
 		{
 			if (!isGameOver)
 			{
 				textMessage.setString("\t    - PAUSE -\n\nPress ENTER to start");
 				Utils::SetOrigin(textMessage, Origins::MC, textMessage.getLocalBounds());
-				textMessage.setPosition(960, 540);
+				textMessage.setPosition(960, 440);
 			}
 			else
 			{
-				textMessage.setString("\t    GameOver\n\nPress ENTER to start");
+				textMessage.setString("\t    GameOver\n\nPress ENTER to restart");
 				Utils::SetOrigin(textMessage, Origins::MC, textMessage.getLocalBounds());
-				textMessage.setPosition(960, 540);
+				textMessage.setPosition(960, 440);
 			}
 			window.draw(textMessage);
 		}
 
 
-		std::stringstream ss;
-		ss << "Score : " << score;
-		scoreMessage.setString(ss.str());
 		window.draw(scoreMessage);
 
 		window.draw(timeBar);
 
+
 		window.display();
+
+
 
 	}
 
@@ -577,20 +549,29 @@ void UpdateBranches()
 		brancheSides[0] = Sides::NONE;
 		break;
 	}
-	while (brancheSides[1] != Sides::NONE && brancheSides[0] != Sides::NONE && brancheSides[1] != brancheSides[0])
+	//while (brancheSides[1] != Sides::NONE && brancheSides[0] != Sides::NONE && brancheSides[1] != brancheSides[0])
+	//{
+	//	side = rand() % 3;
+	//	switch (side)
+	//	{
+	//	case 0:
+	//		brancheSides[0] = Sides::LEFT;
+	//		break;
+	//	case 1:
+	//		brancheSides[0] = Sides::RIGHT;
+	//		break;
+	//	default:
+	//		brancheSides[0] = Sides::NONE;
+	//		break;
+	//	}
+	//}
+}
+
+void ResetBranches()
+{
+	for (int i = 0; i < NUM_OF_BRANCHES; i++)
 	{
-		side = rand() % 3;
-		switch (side)
-		{
-		case 0:
-			brancheSides[0] = Sides::LEFT;
-			break;
-		case 1:
-			brancheSides[0] = Sides::RIGHT;
-			break;
-		default:
-			brancheSides[0] = Sides::NONE;
-			break;
-		}
+		UpdateBranches();
 	}
+	brancheSides[NUM_OF_BRANCHES - 1] = Sides::NONE;
 }
