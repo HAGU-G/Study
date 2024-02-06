@@ -1,14 +1,13 @@
 #pragma once
-
-using namespace sf;
+#include "Singleton.h"
 
 template<typename T>
-class ResourceMgr
+class ResourceMgr : public Singleton<ResourceMgr<T>>
 {
 private:
 	std::unordered_map<std::string, T*> resources;
 public:
-	ResourceMgr() = default;
+	ResourceMgr() = default; //To-Do 싱글톤 객체 보장을 위한 처리가 필요함.
 	virtual ~ResourceMgr()
 	{
 		UnloadAll();

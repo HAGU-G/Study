@@ -13,3 +13,4 @@
 #include "InputMgr.h"
 #include "Utils.h"
 #include "ResourceMgr.h"
+#include "Singleton.h"
