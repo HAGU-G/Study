@@ -9,8 +9,8 @@ SceneDev1::SceneDev1(SceneIds id) : Scene(id)
 void SceneDev1::Init()
 {
 	TestGmo* obj = dynamic_cast<TestGmo*>(AddGo(new TestGmo("Message")));
-
 	ResourceMgr<sf::Font>& fontMgr = ResourceMgr<sf::Font>::Instance();
+	fontMgr.Load("fonts/KOMIKAP_.ttf");
 	obj->text.setFont(*fontMgr.Get("fonts/KOMIKAP_.ttf"));
 	obj->text.setString("SceneDev1 : ");
 	
@@ -30,9 +30,9 @@ void SceneDev1::Exit()
 {
 }
 
-void SceneDev1::Update(float dt)
+void SceneDev1::Update(float dt, float& timeScale)
 {
-	Scene::Update(dt);
+	Scene::Update(dt, timeScale);
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 	{

@@ -21,7 +21,7 @@ void GameObject::Reset()
 {
 }
 
-void GameObject::Update(float dt)
+void GameObject::Update(float dt, float& timeScale)
 {
 }
 

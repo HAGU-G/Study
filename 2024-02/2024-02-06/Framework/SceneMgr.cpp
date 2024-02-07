@@ -39,9 +39,9 @@ void SceneMgr::ChangeScene(SceneIds id)
 	scenes[(int)currentScene]->Enter();
 }
 
-void SceneMgr::Update(float dt)
+void SceneMgr::Update(float dt, float& timeScale)
 {
-	scenes[(int)currentScene]->Update(dt);
+	scenes[(int)currentScene]->Update(dt, timeScale);
 }
 
 void SceneMgr::Draw(sf::RenderWindow& window)

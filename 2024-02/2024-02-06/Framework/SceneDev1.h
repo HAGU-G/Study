@@ -18,7 +18,7 @@ public:
 
 	void Enter() override;
 	void Exit() override;
-	void Update(float dt) override;
+	void Update(float dt, float& timeScale) override;
 
 };
 

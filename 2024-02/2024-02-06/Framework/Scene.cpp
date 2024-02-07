@@ -6,12 +6,12 @@ Scene::Scene(SceneIds id) : id(id)
 
 }
 
-void Scene::Update(float dt)
+void Scene::Update(float dt, float& timeScale)
 {
 	for (auto& obj : gameObjects)
 	{
 		if(obj->GetActive())
-			obj->Update(dt);
+			obj->Update(dt, timeScale);
 	}
 
 }

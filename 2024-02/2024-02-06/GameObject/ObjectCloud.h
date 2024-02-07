@@ -1,19 +1,16 @@
 #pragma once
 #include "GameObject.h"
-class TestGmo : public GameObject
+class ObjectCloud :
+    public GameObject
 {
 protected:
-
 public:
-    TestGmo(const std::string& name = "");
-
-    sf::Text text;
+    static int wind;
+    float speed = 0.f;
+    sf::Sprite sprite;
+    ObjectCloud(const std::string& name = "");
 
     void Init() override;
-    void Release() override;
-
-    void Reset() override;
-
     void Update(float dt, float& timeScale) override;
     void Draw(sf::RenderWindow& window) override;
 };

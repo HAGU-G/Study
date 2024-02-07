@@ -11,6 +11,7 @@ void SceneDev2::Init()
 	TestGmo* obj = new TestGmo();
 
 	ResourceMgr<sf::Font>& fontMgr = ResourceMgr<sf::Font>::Instance();
+	fontMgr.Load("fonts/KOMIKAP_.ttf");
 	obj->text.setFont(*fontMgr.Get("fonts/KOMIKAP_.ttf"));
 	obj->text.setString("SceneDev2 : ");
 
@@ -31,12 +32,12 @@ void SceneDev2::Exit()
 }
 
 
-void SceneDev2::Update(float dt)
+void SceneDev2::Update(float dt, float& timeScale)
 {
-	Scene::Update(dt);
+	Scene::Update(dt, timeScale);
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 	{
-		SceneMgr::Instance().ChangeScene(SceneIds::SceneDev1);
+		SceneMgr::Instance().ChangeScene(SceneIds::SceneTimber);
 	}
 }

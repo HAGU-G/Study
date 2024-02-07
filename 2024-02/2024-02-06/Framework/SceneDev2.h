@@ -20,7 +20,7 @@ public:
 	void Exit() override;
 
 
-	void Update(float dt) override;
+	void Update(float dt, float& timeScale) override;
 
 };
 

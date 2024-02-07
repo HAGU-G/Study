@@ -107,7 +107,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\..\..\SFML-2.6.1\include;.;.\Framework</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\SFML-2.6.1\include;.;.\Framework;.\GameObject</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -135,13 +135,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject\ObjectBackground.cpp" />
     <ClCompile Include="Framework\GameObject.cpp" />
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Framework\InputMgr.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
-    <ClCompile Include="objectPlayer.cpp" />
+    <ClCompile Include="GameObject\ObjectCloud.cpp" />
+    <ClCompile Include="GameObject\ObjectPlayer.cpp" />
+    <ClCompile Include="GameObject\ObjectBee.cpp" />
+    <ClCompile Include="GameObject\ObjectBranch.cpp" />
+    <ClCompile Include="GameObject\ObjectMessage.cpp" />
+    <ClCompile Include="GameObject\ObjectTimebar.cpp" />
+    <ClCompile Include="GameObject\ObjectTree.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -149,26 +156,33 @@
     <ClCompile Include="Framework\SceneMgr.cpp" />
     <ClCompile Include="Framework\SceneDev1.cpp" />
     <ClCompile Include="Framework\TestGmo.cpp" />
-    <ClCompile Include="SceneDev2.cpp" />
+    <ClCompile Include="Framework\SceneDev2.cpp" />
     <ClCompile Include="SceneTimber.cpp" />
     <ClCompile Include="Timber.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject\ObjectBackground.h" />
     <ClInclude Include="Framework\Defines.h" />
     <ClInclude Include="Framework\InputMgr.h" />
     <ClInclude Include="Framework\ResourceMgr.h" />
     <ClInclude Include="Framework\Singleton.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="Framework\GameObject.h" />
-    <ClInclude Include="objectPlayer.h" />
+    <ClInclude Include="GameObject\ObjectCloud.h" />
+    <ClInclude Include="GameObject\ObjectPlayer.h" />
+    <ClInclude Include="GameObject\ObjectBee.h" />
+    <ClInclude Include="GameObject\ObjectBranch.h" />
+    <ClInclude Include="GameObject\ObjectMessage.h" />
+    <ClInclude Include="GameObject\ObjectTimebar.h" />
+    <ClInclude Include="GameObject\ObjectTree.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Framework\Scene.h" />
     <ClInclude Include="Framework\SceneMgr.h" />
     <ClInclude Include="Framework\SceneDev1.h" />
     <ClInclude Include="Framework\TestGmo.h" />
-    <ClInclude Include="SceneDev2.h" />
+    <ClInclude Include="Framework\SceneDev2.h" />
     <ClInclude Include="SceneTimber.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

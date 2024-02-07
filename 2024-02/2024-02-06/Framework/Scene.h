@@ -21,7 +21,7 @@ public:
 	virtual void Enter() = 0;
 	virtual void Exit() = 0;
 
-	virtual void Update(float dt);
+	virtual void Update(float dt, float& timeScale);
 	virtual void Draw(sf::RenderWindow& window);
 
 	virtual GameObject* FindGo(const std::string& name);

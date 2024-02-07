@@ -17,7 +17,7 @@ void TestGmo::Reset()
 {
 }
 
-void TestGmo::Update(float dt)
+void TestGmo::Update(float dt, float& timeScale)
 {
 }
 

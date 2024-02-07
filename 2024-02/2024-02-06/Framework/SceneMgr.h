@@ -4,11 +4,13 @@
 class SceneMgr : public Singleton<SceneMgr>
 {
 protected:
-	std::vector<Scene*> scenes;
-	SceneIds startScene = SceneIds::SceneDev1;
-	SceneIds currentScene = startScene;
+
 
 public:
+	std::vector<Scene*> scenes;
+	SceneIds startScene = SceneIds::SceneTimber;
+	SceneIds currentScene = startScene;
+
 	SceneMgr() = default;
 	SceneMgr(const SceneMgr&) = delete;
 	SceneMgr(SceneMgr&&) = delete;
@@ -23,6 +25,6 @@ public:
 
 	void ChangeScene(SceneIds id);
 
-	void Update(float dt);
+	void Update(float dt, float& timeScale);
 	void Draw(sf::RenderWindow& window);
 };

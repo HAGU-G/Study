@@ -18,7 +18,7 @@ public:
 
 	virtual void Reset();
 
-	virtual void Update(float dt);
+	virtual void Update(float dt, float& timeScale);
 	virtual void Draw(sf::RenderWindow& window);
 
 	inline virtual bool GetActive() const { return active; }
