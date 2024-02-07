@@ -4,6 +4,7 @@
 #include <iostream>
 #include <list>
 #include <unordered_map>
+#include <vector>
 
 //sfml
 #include <SFML/Graphics.hpp>
@@ -14,3 +15,6 @@
 #include "Utils.h"
 #include "ResourceMgr.h"
 #include "Singleton.h"
+#include "GameObject.h"
+#include "Scene.h"
+#include "SceneMgr.h"

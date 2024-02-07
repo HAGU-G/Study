@@ -3,31 +3,36 @@
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
 
-    auto& texMgr = ResourceMgr<sf::Texture>::Instance();
-    texMgr.Load("graphics/player.png");
+    ResourceMgr<sf::Font>& fontMgr = ResourceMgr<sf::Font>::Instance();
+    fontMgr.Load("fonts/KOMIKAP_.ttf");
+    SceneMgr& sceneMgr = SceneMgr::Instance();
+    sceneMgr.Init();
 
-    sf::Sprite player;
-    player.setTexture(*texMgr.Get("graphics/player.png"));
-
+    sf::Clock clock;
     while (window.isOpen())
     {
+        float dt = sf::Time(clock.restart()).asSeconds();
+
+        InputMgr::Clear();
+
         sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+
+            InputMgr::UpdateEvent(event);
         }
 
+        sceneMgr.Update(dt);
+
         window.clear();
-        window.draw(shape);
-        window.draw(player);
+        sceneMgr.Draw(window);
         window.display();
     }
 
-    texMgr.UnLoad("graphics/player.png");
+    sceneMgr.Release();
 
     return 0;
 }

@@ -12,7 +12,10 @@ enum class Origins
 
 enum class Sides
 {
-	LEFT,
-	RIGHT,
-	NONE
+	LEFT, RIGHT, NONE
+};
+
+enum class SceneIds
+{
+	None = -1, SceneDev1, SceneDev2, Count
 };

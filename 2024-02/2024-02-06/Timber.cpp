@@ -39,7 +39,7 @@ int main()
 	textureMgr.Load("graphics/branch.png");
 	textureMgr.Load("graphics/player.png");
 	textureMgr.Load("graphics/axe.png");
-	fontMgr.Load("fonts/KOMIKAP_.ttf");
+	   fontMgr.Load("fonts/KOMIKAP_.ttf");
 
 	//스프라이트
 	sf::Sprite spriteBackground;

@@ -76,3 +76,9 @@ inline const sf::Texture& operator>>(const sf::Texture& texture, sf::Sprite& spr
 	sprite.setTexture(texture);
 	return texture;
 }
+
+inline const sf::Sprite& operator<<(sf::Sprite& sprite, const sf::Texture& texture)
+{
+	sprite.setTexture(texture);
+	return sprite;
+}
