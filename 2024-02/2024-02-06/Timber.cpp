@@ -47,14 +47,13 @@ int main()
 	spriteBackground.setPosition(0, 0);
 
 	sf::Sprite spCloud;
-
+	*textureMgr.Get("graphics/cloud.png") >> spCloud;
+	spCloud.setPosition(0, 0);
+	spCloud.setOrigin(spCloud.getLocalBounds().width / 2, 0);
 
 
 	sf::Sprite spBee;
-	*textureMgr.Get("graphics/cloud.png") >> spCloud >> spBee;
-	spCloud.setPosition(0, 0);
-	spCloud.setOrigin(spCloud.getLocalBounds().width / 2, 0);
-	//spBee.setTexture(*textureMgr.Get("graphics/bee.png"));
+	*textureMgr.Get("graphics/bee.png") >> spBee;
 	Utils::SetOrigin(spBee, Origins::MC);
 	spBee.setPosition(1920.f * rand() / RAND_MAX, 500.f + 200.f * rand() / RAND_MAX);
 

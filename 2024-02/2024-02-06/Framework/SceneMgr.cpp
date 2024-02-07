@@ -2,12 +2,14 @@
 #include "SceneMgr.h"
 #include "SceneDev1.h"
 #include "SceneDev2.h"
+#include "SceneTimber.h"
 void SceneMgr::Init()
 {
 	Release();
 
 	scenes.push_back(new SceneDev1(SceneIds::SceneDev1));
 	scenes.push_back(new SceneDev2(SceneIds::SceneDev2));
+	scenes.push_back(new SceneTimber(SceneIds::SceneTimber));
 
 	for (auto& scene : scenes)
 	{

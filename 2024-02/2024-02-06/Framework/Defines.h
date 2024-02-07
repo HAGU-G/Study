@@ -17,5 +17,5 @@ enum class Sides
 
 enum class SceneIds
 {
-	None = -1, SceneDev1, SceneDev2, Count
+	None = -1, SceneDev1, SceneDev2, SceneTimber, Count
 };
