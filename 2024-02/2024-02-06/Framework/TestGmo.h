@@ -5,6 +5,8 @@ class TestGmo : public GameObject
 protected:
 
 public:
+    TestGmo(const std::string& name = "");
+
     sf::Text text;
 
     void Init() override;

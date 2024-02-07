@@ -8,14 +8,14 @@ SceneDev1::SceneDev1(SceneIds id) : Scene(id)
 
 void SceneDev1::Init()
 {
-	TestGmo* obj = new TestGmo();
+	TestGmo* obj = dynamic_cast<TestGmo*>(AddGo(new TestGmo("Message")));
 
 	ResourceMgr<sf::Font>& fontMgr = ResourceMgr<sf::Font>::Instance();
 	obj->text.setFont(*fontMgr.Get("fonts/KOMIKAP_.ttf"));
 	obj->text.setString("SceneDev1 : ");
+	
 
-
-	gameObjects.push_back(obj);
+	//gameObjects.push_back(obj);
 }
 
 void SceneDev1::Release()
@@ -37,5 +37,11 @@ void SceneDev1::Update(float dt)
 	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 	{
 		SceneMgr::Instance().ChangeScene(SceneIds::SceneDev2);
+	}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num1))
+	{
+		GameObject* findGo = FindGo("Message");
+		findGo->SetActive(!findGo->GetActive());
 	}
 }

@@ -9,7 +9,7 @@ protected:
 	Scene& operator=(Scene&&) = delete;
 
 	SceneIds id;
-	std::list<GameObject*> gameObjects;
+	std::list<GameObject*> gameObjects; //검색기능?
 
 public:
 	Scene(SceneIds id);
@@ -23,5 +23,10 @@ public:
 
 	virtual void Update(float dt);
 	virtual void Draw(sf::RenderWindow& window);
+
+	virtual GameObject* FindGo(const std::string& name);
+	virtual bool FindGoAll(const std::string& name,std::list<GameObject*>& list);
+	virtual GameObject* AddGo(GameObject* obj);
+	virtual void RemoveGo(GameObject* obj);
 
 };

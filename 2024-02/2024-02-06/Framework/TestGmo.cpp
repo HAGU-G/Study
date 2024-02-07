@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "TestGmo.h"
 
+TestGmo::TestGmo(const std::string& name) : GameObject(name)
+{
+}
+
 void TestGmo::Init()
 {
 }

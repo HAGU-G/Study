@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "GameObject.h"
 
-GameObject::GameObject()
+GameObject::GameObject(const std::string& name) : name(name)
 {
 }
 
