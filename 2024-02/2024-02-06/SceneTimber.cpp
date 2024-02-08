@@ -8,7 +8,9 @@
 #include "ObjectPlayer.h"
 #include "ObjectTimebar.h"
 #include "ObjectMessage.h"
+#include "ObjectNewBee.h"
 #include "sstream"
+
 
 SceneTimber::SceneTimber(SceneIds id)
 {
@@ -38,6 +40,7 @@ void SceneTimber::Init()
 	ObjectBee* bee = new ObjectBee("bee");
 	ObjectTimebar* timebar = new ObjectTimebar("timebar");
 	ObjectMessage* message = new ObjectMessage("message");
+	ObjectNewBee* bee2 = new ObjectNewBee("bee2");
 
 
 
@@ -58,6 +61,7 @@ void SceneTimber::Init()
 	}
 	AddGo(player);
 	AddGo(bee);
+	AddGo(bee2);
 	AddGo(timebar);
 	AddGo(message);
 
@@ -74,6 +78,7 @@ void SceneTimber::Init()
 
 void SceneTimber::Release()
 {
+	Scene::Release();
 }
 
 void SceneTimber::Enter()
@@ -85,8 +90,7 @@ void SceneTimber::Exit()
 }
 
 void SceneTimber::Update(float dt, float& timeScale)
-{
-	timer += dt;
+{	timer += dt;
 
 	if (dynamic_cast<ObjectTimebar*>(FindGo("timebar"))->timeBar.getSize().x == 0.f)
 	{

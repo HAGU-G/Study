@@ -12,4 +12,8 @@ public:
 	static void SetOrigin(sf::Shape& obj, Origins originPreset);
 	static void SetOrigin(sf::Text& obj, Origins originPreset);
 
+	static float RandomRange(float min, float max);
+
+	static float RandomValue(); //0.0~1.0
+
 };

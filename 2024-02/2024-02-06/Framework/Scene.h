@@ -16,7 +16,7 @@ public:
 	virtual ~Scene() = default;
 
 	virtual void Init() = 0;
-	virtual void Release() = 0;
+	virtual void Release();
 
 	virtual void Enter() = 0;
 	virtual void Exit() = 0;

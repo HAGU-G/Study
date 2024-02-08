@@ -150,6 +150,7 @@
     <ClCompile Include="GameObject\ObjectMessage.cpp" />
     <ClCompile Include="GameObject\ObjectTimebar.cpp" />
     <ClCompile Include="GameObject\ObjectTree.cpp" />
+    <ClCompile Include="ObjectNewBee.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -179,6 +180,7 @@
     <ClInclude Include="GameObject\ObjectTimebar.h" />
     <ClInclude Include="GameObject\ObjectTree.h" />
     <ClInclude Include="GoSprite.h" />
+    <ClInclude Include="ObjectNewBee.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Framework\Scene.h" />
     <ClInclude Include="Framework\SceneMgr.h" />

@@ -27,3 +27,19 @@ void Utils::SetOrigin(sf::Text& obj, Origins originPreset)
 {
 	SetOrigin(obj, originPreset, obj.getLocalBounds());
 }
+
+float Utils::RandomValue()
+{
+	return (float)rand()/RAND_MAX;
+}
+
+
+float Utils::RandomRange(float min, float max)
+{
+	float value = RandomValue();
+	value *= max - min;
+	value += min;
+
+
+	return value;
+}

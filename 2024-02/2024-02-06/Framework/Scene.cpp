@@ -6,6 +6,15 @@ Scene::Scene(SceneIds id) : id(id)
 
 }
 
+void Scene::Release()
+{
+	for (auto obj : gameObjects)
+	{
+		delete obj;
+	}
+	gameObjects.clear();
+}
+
 void Scene::Update(float dt, float& timeScale)
 {
 	for (auto& obj : gameObjects)
