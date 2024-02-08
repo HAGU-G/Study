@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="GameObject\ObjectBackground.cpp" />
     <ClCompile Include="Framework\GameObject.cpp" />
+    <ClCompile Include="GoSprite.cpp" />
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -177,6 +178,7 @@
     <ClInclude Include="GameObject\ObjectMessage.h" />
     <ClInclude Include="GameObject\ObjectTimebar.h" />
     <ClInclude Include="GameObject\ObjectTree.h" />
+    <ClInclude Include="GoSprite.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Framework\Scene.h" />
     <ClInclude Include="Framework\SceneMgr.h" />

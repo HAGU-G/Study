@@ -25,7 +25,8 @@ int main()
             InputMgr::UpdateEvent(event);
         }
 
-        sceneMgr.Update(dt);
+        float timeScale = 1.f;
+        sceneMgr.Update(dt, timeScale);
 
         window.clear();
         sceneMgr.Draw(window);
