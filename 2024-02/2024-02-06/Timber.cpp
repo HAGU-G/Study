@@ -21,7 +21,7 @@ int main()
 		float dt = sf::Time(clock.getElapsedTime()).asSeconds();
 		clock.restart();
 
-		//이벤트
+		//이벤트.
 		InputMgr::Clear();
 		sf::Event event;
 		while (window.pollEvent(event))
