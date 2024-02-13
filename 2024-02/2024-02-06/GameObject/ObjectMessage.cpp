@@ -21,7 +21,7 @@ void ObjectMessage::Init()
 	scoreMessage.setFillColor(sf::Color::White);
 	scoreMessage.setPosition(10, 0);
 	scoreMessage.setOutlineThickness(5);
-	scoreMessage.setString("Score : 0");
+	scoreMessage.setString(textFormat + "0");
 }
 
 void ObjectMessage::Update(float dt, float& timeScale)

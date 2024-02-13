@@ -33,6 +33,19 @@ float Utils::RandomValue()
 	return (float)rand()/RAND_MAX;
 }
 
+sf::Vector2f Utils::RandomOnUintCircle()
+{
+	sf::Transform rotation;
+	rotation.rotate(RandomRange(0.f, 360.f));
+	sf::Vector2f vec(1.f, 0.f);
+	return rotation * vec;
+}
+
+sf::Vector2f Utils::RandomInUintCircle()
+{
+	return RandomOnUintCircle() * RandomValue();
+}
+
 
 float Utils::RandomRange(float min, float max)
 {

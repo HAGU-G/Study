@@ -7,6 +7,8 @@ protected:
 public:
     bool isStop = true;
     bool isGameOver = false;
+    int score = 0;
+    std::string textFormat = "Score : ";
     sf::Text textMessage;
     sf::Text scoreMessage;
     ObjectMessage(const std::string& name = "");
