@@ -13,7 +13,8 @@ public:
 	static void SetOrigin(sf::Text& obj, Origins originPreset);
 
 	static float RandomRange(float min, float max);
-
 	static float RandomValue(); //0.0~1.0
+	static sf::Vector2f RandomOnUintCircle(); //반경 위의 랜덤한 점
+	static sf::Vector2f RandomInUintCircle(); //반경 안의 랜덤한 점
 
 };
