@@ -13,6 +13,8 @@ int main()
 	SceneMgr& sm = SceneMgr::Instance();
 	sm.Init();
 
+	Framework::Instance();
+
 	sf::Clock clock;
 	float timeScale = 0.f;
 	while (window.isOpen())
